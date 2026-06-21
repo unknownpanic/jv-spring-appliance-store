@@ -1,0 +1,21 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-employees-table
+      author: maxima
+      changes:
+        - createTable:
+            tableName: employees
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+                    foreignKeyName: fk_employee_user
+                    references: users(id)
+              - column:
+                  name: department
+                  type: varchar(255)
+                  constraints:
+                    nullable: false

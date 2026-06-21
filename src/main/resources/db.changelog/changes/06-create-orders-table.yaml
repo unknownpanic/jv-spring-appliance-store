@@ -1,0 +1,35 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-orders-table
+      author: maxima
+      changes:
+        - createTable:
+            tableName: orders
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: employee_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_order_employee
+                    references: employees(id)
+              - column:
+                  name: client_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_order_client
+                    references: clients(id)
+              - column:
+                  name: approved
+                  type: bit(1)
+                  defaultValueBoolean: false
+                  constraints:
+                    nullable: false

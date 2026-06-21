@@ -1,0 +1,58 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-appliances-table
+      author: maxima
+      changes:
+        - createTable:
+            tableName: appliances
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: category
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: model
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: manufacturer_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_appliance_manufacturer
+                    references: manufacturers(id)
+              - column:
+                  name: power_type
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: characteristic
+                  type: varchar(255)
+              - column:
+                  name: description
+                  type: varchar(255)
+              - column:
+                  name: power
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: price
+                  type: decimal(10,2)
+                  constraints:
+                    nullable: false
