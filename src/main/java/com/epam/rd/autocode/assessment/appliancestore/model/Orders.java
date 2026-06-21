@@ -1,6 +1,7 @@
 package com.epam.rd.autocode.assessment.appliancestore.model;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -27,13 +28,14 @@ public class Orders {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "employee_id")
+    @JoinColumn(name = "employee_id", nullable = false)
     private Employee employee;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "client_id")
+    @JoinColumn(name = "client_id", nullable = false)
     private Client client;
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "orders_id")
+    @JoinColumn(name = "order_id")
     private Set<OrderRow> orderRowSet;
-    private Boolean approved;
+    @Column(nullable = false)
+    private boolean approved;
 }

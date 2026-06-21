@@ -1,0 +1,21 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-clients-table
+      author: maxima
+      changes:
+        - createTable:
+            tableName: clients
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+                    foreignKeyName: fk_client_user
+                    references: users(id)
+              - column:
+                  name: card
+                  type: varchar(255)
+                  constraints:
+                    nullable: false

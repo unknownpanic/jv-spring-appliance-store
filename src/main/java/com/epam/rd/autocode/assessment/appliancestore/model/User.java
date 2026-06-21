@@ -12,6 +12,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.SQLRestriction;
 
 @Entity
 @Getter
@@ -19,6 +21,8 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "users")
+@SQLRestriction("is_deleted=false")
+@SQLDelete(sql = "UPDATE users SET is_deleted = true WHERE id = ?")
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class User {
     @Id
@@ -30,4 +34,6 @@ public abstract class User {
     private String email;
     @Column(nullable = false)
     private String password;
+    @Column(nullable = false)
+    private boolean isDeleted;
 }

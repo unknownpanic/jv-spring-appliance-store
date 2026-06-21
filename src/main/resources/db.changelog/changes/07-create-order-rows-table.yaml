@@ -1,0 +1,38 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-order-rows-table
+      author: maxima
+      changes:
+        - createTable:
+            tableName: order_rows
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: appliance_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_order_row_appliance
+                    references: appliances(id)
+              - column:
+                  name: number
+                  type: bigint
+                  constraints:
+                    nullable: false
+              - column:
+                  name: amount
+                  type: decimal(10,2)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: order_id
+                  type: bigint
+                  constraints:
+                    foreignKeyName: fk_order_row_order
+                    references: orders(id)
