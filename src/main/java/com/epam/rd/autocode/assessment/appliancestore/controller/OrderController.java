@@ -1,40 +1,36 @@
-package com.epam.rd.autocode.assessment.appliancestore.service.impl;
+package com.epam.rd.autocode.assessment.appliancestore.controller;
 
 import com.epam.rd.autocode.assessment.appliancestore.model.dto.order.CreateOrderRequestDto;
 import com.epam.rd.autocode.assessment.appliancestore.model.dto.order.OrderResponseDto;
-import com.epam.rd.autocode.assessment.appliancestore.repository.OrderRepository;
 import com.epam.rd.autocode.assessment.appliancestore.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-@Service
+@RestController
 @RequiredArgsConstructor
-public class OrderServiceImpl implements OrderService {
-    private final OrderRepository orderRepository;
+@RequestMapping("/orders")
+public class OrderController {
+    private final OrderService orderService;
 
-    @Override
     public Page<OrderResponseDto> getAll(Pageable pageable) {
-        return null;
+        return orderService.getAll(pageable);
     }
 
-    @Override
     public OrderResponseDto getById(Long id) {
-        return null;
+        return orderService.getById(id);
     }
 
-    @Override
     public OrderResponseDto create(CreateOrderRequestDto requestDto) {
-        return null;
+        return orderService.create(requestDto);
     }
 
-    @Override
     public OrderResponseDto updateById(Long id, CreateOrderRequestDto requestDto) {
-        return null;
+        return orderService.updateById(id, requestDto);
     }
 
-    @Override
     public void deleteById(Long id) {
         return;
     }
