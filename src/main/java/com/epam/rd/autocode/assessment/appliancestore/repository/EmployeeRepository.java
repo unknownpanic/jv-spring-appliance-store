@@ -1,4 +1,6 @@
 package com.epam.rd.autocode.assessment.appliancestore.repository;
 
-public interface EmployeeRepository {
+import com.epam.rd.autocode.assessment.appliancestore.model.Employee;
+
+public interface EmployeeRepository extends BaseUserRepository<Employee> {
 }
