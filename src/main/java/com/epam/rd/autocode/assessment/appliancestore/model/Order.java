@@ -11,6 +11,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import java.util.HashSet;
 import java.util.Set;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -35,7 +36,7 @@ public class Order {
     private Client client;
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "order_id")
-    private Set<OrderRow> orderRowSet;
+    private Set<OrderRow> orderRowSet = new HashSet<>();
     @Column(nullable = false)
     private boolean approved;
 }
