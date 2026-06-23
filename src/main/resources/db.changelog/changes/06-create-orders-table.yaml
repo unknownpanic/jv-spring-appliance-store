@@ -17,7 +17,7 @@ databaseChangeLog:
                   name: employee_id
                   type: bigint
                   constraints:
-                    nullable: false
+                    nullable: true
                     foreignKeyName: fk_order_employee
                     references: employees(id)
               - column:

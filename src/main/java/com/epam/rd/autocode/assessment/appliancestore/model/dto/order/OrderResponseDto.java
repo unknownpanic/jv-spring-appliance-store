@@ -1,14 +1,13 @@
 package com.epam.rd.autocode.assessment.appliancestore.model.dto.order;
 
-import lombok.Data;
 import java.util.Set;
+import lombok.Data;
 
 @Data
 public class OrderResponseDto {
     private Long id;
     private Long clientId;
-    private String clientName;
     private Long employeeId;
-    private Boolean approved;
+    private boolean approved;
     private Set<OrderRowResponseDto> rows;
 }

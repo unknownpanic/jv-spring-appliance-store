@@ -9,6 +9,5 @@ import org.mapstruct.Mapping;
 @Mapper(config = MapperConfig.class)
 public interface OrderRowMapper {
     @Mapping(source = "appliance.id", target = "applianceId")
-    @Mapping(source = "appliance.name", target = "applianceName")
     OrderRowResponseDto toDto(OrderRow orderRow);
 }

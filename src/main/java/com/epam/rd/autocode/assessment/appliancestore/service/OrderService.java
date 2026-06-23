@@ -2,15 +2,16 @@ package com.epam.rd.autocode.assessment.appliancestore.service;
 
 import com.epam.rd.autocode.assessment.appliancestore.model.dto.order.CreateOrderRequestDto;
 import com.epam.rd.autocode.assessment.appliancestore.model.dto.order.OrderResponseDto;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import java.util.List;
 
 public interface OrderService {
-    Page<OrderResponseDto> getAll(Pageable pageable);
+    List<OrderResponseDto> getAll();
+
+    OrderResponseDto create(CreateOrderRequestDto requestDto, String email);
 
     OrderResponseDto getById(Long id);
 
-    OrderResponseDto create(CreateOrderRequestDto requestDto);
+    OrderResponseDto approveById(Long id, String employeeEmail);
 
     OrderResponseDto updateById(Long id, CreateOrderRequestDto requestDto);
 

@@ -7,7 +7,6 @@ import lombok.Data;
 public class OrderRowResponseDto {
     private Long id;
     private Long applianceId;
-    private String applianceName;
     private Long number;
     private BigDecimal amount;
 }
