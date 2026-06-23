@@ -18,6 +18,8 @@ public class ManufacturerServiceImpl implements ManufacturerService {
     private final ManufacturerRepository manufacturerRepository;
     private final ManufacturerMapper manufacturerMapper;
 
+    @Override
+    @Transactional(readOnly = true)
     public List<ManufacturerResponseDto> getAll() {
         return manufacturerRepository.findAll().stream()
                 .map(manufacturerMapper::toDto)
@@ -25,17 +27,20 @@ public class ManufacturerServiceImpl implements ManufacturerService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public ManufacturerResponseDto getById(Long id) {
         return manufacturerMapper.toDto(manufacturerRepository.findById(id).orElseThrow(
                 () -> new EntityNotFoundException("Manufacturer not found")));
     }
 
+    @Override
     @Transactional
     public ManufacturerResponseDto create(CreateManufacturerRequestDto requestDto) {
         Manufacturer manufacturer = manufacturerMapper.toModel(requestDto);
         return manufacturerMapper.toDto(manufacturerRepository.save(manufacturer));
     }
 
+    @Override
     @Transactional
     public ManufacturerResponseDto updateById(Long id, CreateManufacturerRequestDto requestDto) {
         Manufacturer manufacturer = manufacturerRepository.findById(id)
@@ -44,6 +49,7 @@ public class ManufacturerServiceImpl implements ManufacturerService {
         return manufacturerMapper.toDto(manufacturerRepository.save(manufacturer));
     }
 
+    @Override
     @Transactional
     public void deleteById(Long id) {
         manufacturerRepository.deleteById(id);

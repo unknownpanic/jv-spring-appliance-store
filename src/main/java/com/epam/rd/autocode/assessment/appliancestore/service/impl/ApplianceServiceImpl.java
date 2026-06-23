@@ -23,18 +23,23 @@ public class ApplianceServiceImpl implements ApplianceService {
     private final ManufacturerRepository manufacturerRepository;
     private final ApplianceMapper applianceMapper;
 
+    @Override
+    @Transactional(readOnly = true)
     public List<ApplianceResponseDto> getAll() {
         return applianceRepository.findAll().stream()
                 .map(applianceMapper::toDto)
                 .toList();
     }
 
+    @Override
+    @Transactional(readOnly = true)
     public ApplianceResponseDto getById(Long id) {
         Appliance appliance = applianceRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Appliance not found"));
         return applianceMapper.toDto(appliance);
     }
 
+    @Override
     @Transactional
     public ApplianceResponseDto create(CreateApplianceRequestDto requestDto) {
         Appliance appliance = applianceMapper.toModel(requestDto);
@@ -42,6 +47,7 @@ public class ApplianceServiceImpl implements ApplianceService {
         return applianceMapper.toDto(applianceRepository.save(appliance));
     }
 
+    @Override
     @Transactional
     public ApplianceResponseDto updateById(Long id, CreateApplianceRequestDto requestDto) {
         Appliance appliance = applianceRepository.findById(id)
@@ -51,6 +57,7 @@ public class ApplianceServiceImpl implements ApplianceService {
         return applianceMapper.toDto(applianceRepository.save(appliance));
     }
 
+    @Override
     @Transactional
     public void deleteById(Long id) {
         applianceRepository.deleteById(id);
