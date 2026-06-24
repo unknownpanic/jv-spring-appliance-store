@@ -7,6 +7,7 @@ import jakarta.validation.Valid;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,17 +25,20 @@ public class ManufacturerController {
     private final ManufacturerService manufacturerService;
 
     @GetMapping
+    @PreAuthorize("hasRole('EMPLOYEE')")
     public List<ManufacturerResponseDto> getAllManufacturers() {
         return manufacturerService.getAll();
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasRole('EMPLOYEE')")
     public ManufacturerResponseDto getManufacturerById(@PathVariable Long id) {
         return manufacturerService.getById(id);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
+    @PreAuthorize("hasRole('EMPLOYEE')")
     public ManufacturerResponseDto createManufacturer(
             @RequestBody @Valid CreateManufacturerRequestDto requestDto
     ) {
@@ -42,6 +46,7 @@ public class ManufacturerController {
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasRole('EMPLOYEE')")
     public ManufacturerResponseDto updateManufacturer(
             @PathVariable Long id,
             @RequestBody @Valid CreateManufacturerRequestDto requestDto
@@ -50,6 +55,7 @@ public class ManufacturerController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('EMPLOYEE')")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteManufacturer(@PathVariable Long id) {
         manufacturerService.deleteById(id);
