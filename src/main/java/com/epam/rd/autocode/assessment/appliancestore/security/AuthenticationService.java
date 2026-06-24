@@ -4,6 +4,7 @@ import com.epam.rd.autocode.assessment.appliancestore.model.dto.user.UserLoginRe
 import com.epam.rd.autocode.assessment.appliancestore.model.dto.user.UserLoginResponseDto;
 import com.epam.rd.autocode.assessment.appliancestore.service.LoginAttemptService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.LockedException;
@@ -11,6 +12,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class AuthenticationService {
@@ -31,6 +33,7 @@ public class AuthenticationService {
             );
             loginAttemptService.loginSucceeded(requestDto.getEmail());
             String token = jwtUtil.generateToken(authentication.getName());
+            log.info("User {} successfully authenticated", requestDto.getEmail());
             return new UserLoginResponseDto(token);
         } catch (BadCredentialsException ex) {
             loginAttemptService.loginFailed(requestDto.getEmail());
