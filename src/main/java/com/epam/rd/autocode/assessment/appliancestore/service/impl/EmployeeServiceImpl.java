@@ -1,15 +1,20 @@
 package com.epam.rd.autocode.assessment.appliancestore.service.impl;
 
 import com.epam.rd.autocode.assessment.appliancestore.exception.EntityNotFoundException;
+import com.epam.rd.autocode.assessment.appliancestore.exception.RegistrationException;
 import com.epam.rd.autocode.assessment.appliancestore.mapper.EmployeeMapper;
 import com.epam.rd.autocode.assessment.appliancestore.model.Employee;
+import com.epam.rd.autocode.assessment.appliancestore.model.Role;
 import com.epam.rd.autocode.assessment.appliancestore.model.dto.employee.CreateEmployeeRequestDto;
 import com.epam.rd.autocode.assessment.appliancestore.model.dto.employee.EmployeeResponseDto;
 import com.epam.rd.autocode.assessment.appliancestore.model.dto.employee.UpdateEmployeeRequestDto;
 import com.epam.rd.autocode.assessment.appliancestore.repository.EmployeeRepository;
+import com.epam.rd.autocode.assessment.appliancestore.repository.RoleRepository;
 import com.epam.rd.autocode.assessment.appliancestore.service.EmployeeService;
 import java.util.List;
+import java.util.Set;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,6 +23,8 @@ import org.springframework.transaction.annotation.Transactional;
 public class EmployeeServiceImpl implements EmployeeService {
     private final EmployeeRepository employeeRepository;
     private final EmployeeMapper employeeMapper;
+    private final PasswordEncoder passwordEncoder;
+    private final RoleRepository roleRepository;
 
     @Override
     @Transactional(readOnly = true)
@@ -39,9 +46,15 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Transactional
     public EmployeeResponseDto create(CreateEmployeeRequestDto requestDto) {
         if (employeeRepository.findByEmail(requestDto.getEmail()).isPresent()) {
-            throw new IllegalArgumentException("Email is already in use");
+            throw new RegistrationException("Email is already in use");
         }
         Employee employee = employeeMapper.toModel(requestDto);
+        employee.setPassword(passwordEncoder.encode(requestDto.getPassword()));
+
+        Role employeeRole = roleRepository.findByName(Role.RoleName.EMPLOYEE)
+                .orElseThrow(() -> new EntityNotFoundException("Role EMPLOYEE not found"));
+        employee.setRoles(Set.of(employeeRole));
+
         return employeeMapper.toDto(employeeRepository.save(employee));
     }
 
@@ -54,7 +67,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         employeeRepository.findByEmail(requestDto.getEmail())
                 .filter(e -> !e.getId().equals(id))
                 .ifPresent(e -> {
-                    throw new IllegalArgumentException("Email is already in use");
+                    throw new RegistrationException("Email is already in use");
                 });
 
         employeeMapper.updateEmployee(employee, requestDto);
