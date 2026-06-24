@@ -1,9 +1,9 @@
 package com.epam.rd.autocode.assessment.appliancestore.service.impl;
 
 import com.epam.rd.autocode.assessment.appliancestore.service.LoginAttemptService;
-import org.springframework.stereotype.Service;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import org.springframework.stereotype.Service;
 
 @Service
 public class LoginAttemptServiceImpl implements LoginAttemptService {

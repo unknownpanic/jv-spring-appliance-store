@@ -8,6 +8,7 @@ import jakarta.validation.Valid;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,16 +26,19 @@ public class EmployeeController {
     private final EmployeeService employeeService;
 
     @GetMapping
+    @PreAuthorize("hasRole('EMPLOYEE')")
     public List<EmployeeResponseDto> getAll() {
         return employeeService.getAll();
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasRole('EMPLOYEE')")
     public EmployeeResponseDto getById(@PathVariable Long id) {
         return employeeService.getById(id);
     }
 
     @PostMapping
+    @PreAuthorize("hasRole('EMPLOYEE')")
     @ResponseStatus(HttpStatus.CREATED)
     public EmployeeResponseDto create(
             @RequestBody @Valid CreateEmployeeRequestDto requestDto
@@ -43,6 +47,7 @@ public class EmployeeController {
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasRole('EMPLOYEE')")
     public EmployeeResponseDto update(
             @PathVariable Long id,
             @RequestBody @Valid UpdateEmployeeRequestDto requestDto
@@ -51,6 +56,7 @@ public class EmployeeController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('EMPLOYEE')")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteById(@PathVariable Long id) {
         employeeService.deleteById(id);

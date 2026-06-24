@@ -8,6 +8,7 @@ import jakarta.validation.Valid;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,17 +26,20 @@ public class ClientController {
     private final ClientService clientService;
 
     @GetMapping
+    @PreAuthorize("hasRole('EMPLOYEE')")
     public List<ClientResponseDto> getAll() {
         return clientService.getAll();
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasRole('EMPLOYEE')")
     public ClientResponseDto getById(@PathVariable Long id) {
         return clientService.getById(id);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
+    @PreAuthorize("hasRole('EMPLOYEE')")
     public ClientResponseDto create(
             @RequestBody @Valid CreateClientRequestDto requestDto
     ) {
@@ -43,6 +47,7 @@ public class ClientController {
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasRole('EMPLOYEE')")
     public ClientResponseDto update(
             @PathVariable Long id,
             @RequestBody @Valid UpdateClientRequestDto requestDto
@@ -51,6 +56,7 @@ public class ClientController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('EMPLOYEE')")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteById(@PathVariable Long id) {
         clientService.deleteById(id);
