@@ -1,5 +1,6 @@
 package com.epam.rd.autocode.assessment.appliancestore.service.impl;
 
+import com.epam.rd.autocode.assessment.appliancestore.exception.EntityNotFoundException;
 import com.epam.rd.autocode.assessment.appliancestore.mapper.ClientMapper;
 import com.epam.rd.autocode.assessment.appliancestore.model.Client;
 import com.epam.rd.autocode.assessment.appliancestore.model.dto.client.ClientResponseDto;
@@ -7,7 +8,6 @@ import com.epam.rd.autocode.assessment.appliancestore.model.dto.client.CreateCli
 import com.epam.rd.autocode.assessment.appliancestore.model.dto.client.UpdateClientRequestDto;
 import com.epam.rd.autocode.assessment.appliancestore.repository.ClientRepository;
 import com.epam.rd.autocode.assessment.appliancestore.service.ClientService;
-import jakarta.persistence.EntityNotFoundException;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
