@@ -1,12 +1,12 @@
 package com.epam.rd.autocode.assessment.appliancestore.service.impl;
 
+import com.epam.rd.autocode.assessment.appliancestore.exception.EntityNotFoundException;
 import com.epam.rd.autocode.assessment.appliancestore.mapper.ManufacturerMapper;
 import com.epam.rd.autocode.assessment.appliancestore.model.Manufacturer;
 import com.epam.rd.autocode.assessment.appliancestore.model.dto.manufacturer.CreateManufacturerRequestDto;
 import com.epam.rd.autocode.assessment.appliancestore.model.dto.manufacturer.ManufacturerResponseDto;
 import com.epam.rd.autocode.assessment.appliancestore.repository.ManufacturerRepository;
 import com.epam.rd.autocode.assessment.appliancestore.service.ManufacturerService;
-import jakarta.persistence.EntityNotFoundException;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
