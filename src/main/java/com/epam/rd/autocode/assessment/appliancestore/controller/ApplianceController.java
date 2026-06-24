@@ -1,11 +1,14 @@
 package com.epam.rd.autocode.assessment.appliancestore.controller;
 
 import com.epam.rd.autocode.assessment.appliancestore.model.dto.appliance.ApplianceResponseDto;
+import com.epam.rd.autocode.assessment.appliancestore.model.dto.appliance.ApplianceSearchParametersDto;
 import com.epam.rd.autocode.assessment.appliancestore.model.dto.appliance.CreateApplianceRequestDto;
 import com.epam.rd.autocode.assessment.appliancestore.service.ApplianceService;
 import jakarta.validation.Valid;
-import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,13 +27,23 @@ public class ApplianceController {
     private final ApplianceService applianceService;
 
     @GetMapping
-    public List<ApplianceResponseDto> getAllAppliances() {
-        return applianceService.getAll();
+    public Page<ApplianceResponseDto> getAllAppliances(
+            @PageableDefault(size = 10, sort = "id") Pageable pageable
+    ) {
+        return applianceService.getAll(pageable);
     }
 
     @GetMapping("/{id}")
     public ApplianceResponseDto getApplianceById(@PathVariable Long id) {
         return applianceService.getById(id);
+    }
+
+    @GetMapping("/search")
+    public Page<ApplianceResponseDto> searchAppliances(
+            ApplianceSearchParametersDto searchParameters,
+            @PageableDefault(size = 10, sort = "id") Pageable pageable
+    ) {
+        return applianceService.search(searchParameters, pageable);
     }
 
     @PostMapping

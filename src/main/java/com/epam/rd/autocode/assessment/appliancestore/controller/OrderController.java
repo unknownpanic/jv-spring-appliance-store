@@ -4,8 +4,10 @@ import com.epam.rd.autocode.assessment.appliancestore.model.dto.order.CreateOrde
 import com.epam.rd.autocode.assessment.appliancestore.model.dto.order.OrderResponseDto;
 import com.epam.rd.autocode.assessment.appliancestore.service.OrderService;
 import jakarta.validation.Valid;
-import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,8 +28,10 @@ public class OrderController {
     private final OrderService orderService;
 
     @GetMapping
-    public List<OrderResponseDto> getAllOrders() {
-        return orderService.getAll();
+    public Page<OrderResponseDto> getAllOrders(
+            @PageableDefault(size = 10, sort = "id") Pageable pageable
+    ) {
+        return orderService.getAll(pageable);
     }
 
     @GetMapping("/{id}")
