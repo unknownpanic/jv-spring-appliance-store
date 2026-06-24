@@ -17,9 +17,10 @@ import com.epam.rd.autocode.assessment.appliancestore.repository.appliance.Appli
 import com.epam.rd.autocode.assessment.appliancestore.service.OrderService;
 import java.math.BigDecimal;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -34,10 +35,9 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<OrderResponseDto> getAll() {
-        return orderRepository.findAll().stream()
-                .map(orderMapper::toDto)
-                .toList();
+    public Page<OrderResponseDto> getAll(Pageable pageable) {
+        return orderRepository.findAll(pageable)
+                .map(orderMapper::toDto);
     }
 
     @Override
