@@ -1,5 +1,6 @@
 package com.epam.rd.autocode.assessment.appliancestore.service.impl;
 
+import com.epam.rd.autocode.assessment.appliancestore.exception.EntityNotFoundException;
 import com.epam.rd.autocode.assessment.appliancestore.mapper.OrderMapper;
 import com.epam.rd.autocode.assessment.appliancestore.model.Appliance;
 import com.epam.rd.autocode.assessment.appliancestore.model.Client;
@@ -14,7 +15,6 @@ import com.epam.rd.autocode.assessment.appliancestore.repository.ClientRepositor
 import com.epam.rd.autocode.assessment.appliancestore.repository.EmployeeRepository;
 import com.epam.rd.autocode.assessment.appliancestore.repository.OrderRepository;
 import com.epam.rd.autocode.assessment.appliancestore.service.OrderService;
-import jakarta.persistence.EntityNotFoundException;
 import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.List;
