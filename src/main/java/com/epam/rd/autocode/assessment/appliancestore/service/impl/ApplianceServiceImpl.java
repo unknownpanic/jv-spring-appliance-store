@@ -78,6 +78,9 @@ public class ApplianceServiceImpl implements ApplianceService {
     @Override
     @Transactional
     public void deleteById(Long id) {
+        if (!applianceRepository.existsById(id)) {
+            throw new EntityNotFoundException("Appliance not found");
+        }
         applianceRepository.deleteById(id);
     }
 
