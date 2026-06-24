@@ -1,0 +1,17 @@
+databaseChangeLog:
+  - changeSet:
+      id: insert-roles
+      author: maxima
+      changes:
+        - insert:
+            tableName: roles
+            columns:
+              - column:
+                  name: name
+                  value: CLIENT
+        - insert:
+            tableName: roles
+            columns:
+              - column:
+                  name: name
+                  value: EMPLOYEE
