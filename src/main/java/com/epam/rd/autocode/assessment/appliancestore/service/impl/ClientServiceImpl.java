@@ -10,6 +10,7 @@ import com.epam.rd.autocode.assessment.appliancestore.model.dto.client.CreateCli
 import com.epam.rd.autocode.assessment.appliancestore.model.dto.client.UpdateClientRequestDto;
 import com.epam.rd.autocode.assessment.appliancestore.repository.ClientRepository;
 import com.epam.rd.autocode.assessment.appliancestore.repository.RoleRepository;
+import com.epam.rd.autocode.assessment.appliancestore.repository.UserRepository;
 import com.epam.rd.autocode.assessment.appliancestore.service.ClientService;
 import java.util.List;
 import java.util.Set;
@@ -23,6 +24,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class ClientServiceImpl implements ClientService {
     private final ClientRepository clientRepository;
     private final ClientMapper clientMapper;
+    private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final RoleRepository roleRepository;
 
@@ -32,6 +34,14 @@ public class ClientServiceImpl implements ClientService {
         return clientRepository.findAll().stream()
                 .map(clientMapper::toDto)
                 .toList();
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public ClientResponseDto getByEmail(String email) {
+        Client client = clientRepository.findByEmail(email)
+                .orElseThrow(() -> new EntityNotFoundException("Client not found"));
+        return clientMapper.toDto(client);
     }
 
     @Override
@@ -64,11 +74,25 @@ public class ClientServiceImpl implements ClientService {
         Client client = clientRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Client not found"));
 
-        clientRepository.findByEmail(requestDto.getEmail())
-                .filter(c -> !c.getId().equals(id))
-                .ifPresent(c -> {
-                    throw new RegistrationException("Email is already in use");
-                });
+        if (!client.getEmail().equals(requestDto.getEmail())
+                && userRepository.existsByEmail(requestDto.getEmail())) {
+            throw new RegistrationException("Email is already in use");
+        }
+
+        clientMapper.updateClient(client, requestDto);
+        return clientMapper.toDto(clientRepository.save(client));
+    }
+
+    @Override
+    @Transactional
+    public ClientResponseDto updateByEmail(String currentEmail, UpdateClientRequestDto requestDto) {
+        Client client = clientRepository.findByEmail(currentEmail)
+                .orElseThrow(() -> new EntityNotFoundException("Client not found"));
+
+        if (!client.getEmail().equals(requestDto.getEmail())
+                && userRepository.existsByEmail(requestDto.getEmail())) {
+            throw new RegistrationException("Email is already in use");
+        }
 
         clientMapper.updateClient(client, requestDto);
         return clientMapper.toDto(clientRepository.save(client));

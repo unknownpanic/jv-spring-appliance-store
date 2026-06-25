@@ -45,7 +45,7 @@ public abstract class User implements UserDetails {
     private String password;
     @Column(nullable = false)
     private boolean isDeleted;
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "users_roles",
             joinColumns = @JoinColumn(name = "user_id"),

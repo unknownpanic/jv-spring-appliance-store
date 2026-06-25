@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Clients — ApplianceStore</title>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+  <nav class="navbar">
+    <a href="index.html" class="nav-logo">🔌 ApplianceStore</a>
+    <div class="nav-links" id="navLinks">
+      <a href="index.html" data-i18n="nav.home">Home</a>
+      <a href="appliances.html" data-i18n="nav.appliances">Appliances</a>
+      <a href="orders.html" class="auth-only" data-i18n="nav.orders">Orders</a>
+      <a href="clients.html" class="employee-only active" data-i18n="nav.clients">Clients</a>
+      <a href="employees.html" class="employee-only" data-i18n="nav.employees">Employees</a>
+      <a href="manufacturers.html" class="employee-only" data-i18n="nav.manufacturers">Manufacturers</a>
+    </div>
+    <div class="nav-actions">
+      <button class="btn-lang" id="langToggle">EN</button>
+      <div class="auth-only" id="userInfo">
+        <span id="userEmail"></span>
+        <span id="userRole" class="badge"></span>
+        <button onclick="logout()" data-i18n="nav.logout">Logout</button>
+      </div>
+    </div>
+    <button class="burger" id="burger">☰</button>
+  </nav>
+
+  <main class="container">
+    <div class="page-header">
+      <h1 data-i18n="clients.title">Clients</h1>
+      <button class="btn-primary" id="addBtn" data-i18n="clients.add">Add Client</button>
+    </div>
+    <div id="errorBox" class="error-box hidden"></div>
+    <div id="listContainer"></div>
+  </main>
+
+  <div class="modal-overlay hidden" id="modal">
+    <div class="modal">
+      <div class="modal-header">
+        <h2 id="modalTitle"></h2>
+        <button class="modal-close" id="modalClose">✕</button>
+      </div>
+      <div id="modalErrorBox" class="error-box hidden"></div>
+      <form id="itemForm" class="modal-form">
+        <div class="field"><label data-i18n="clients.name">Name</label><input type="text" name="name" required/></div>
+        <div class="field"><label data-i18n="clients.email">Email</label><input type="email" name="email" required/></div>
+        <div class="field"><label data-i18n="clients.card">Card</label><input type="text" name="card" placeholder="XXXX-XXXX-XXXX-XXXX" maxlength="19"/></div>
+        <div class="field new-only"><label data-i18n="auth.password">Password</label><input type="password" name="password"/></div>
+        <div class="field new-only"><label data-i18n="auth.repeatPassword">Repeat Password</label><input type="password" name="repeatPassword"/></div>
+        <div class="modal-actions">
+          <button type="button" class="btn-outline" id="modalCancel" data-i18n="common.cancel">Cancel</button>
+          <button type="submit" class="btn-primary" id="modalSubmit" data-i18n="common.save">Save</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="modal-overlay hidden" id="confirmModal">
+    <div class="modal confirm-modal">
+      <p id="confirmMsg"></p>
+      <div class="modal-actions">
+        <button class="btn-outline" id="confirmNo" data-i18n="common.cancel">Cancel</button>
+        <button class="btn-danger" id="confirmYes" data-i18n="common.yes">Yes</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="i18n.js"></script>
+  <script src="auth.js"></script>
+  <script src="crud.js"></script>
+  <script>
+    initNav();
+    requireEmployee();
+    applyLang();
+
+    let editId = null;
+
+    document.querySelector('input[name="card"]').addEventListener('input', function (e) {
+      this.value = this.value.replace(/\D/g, '').replace(/(\d{4})(?=\d)/g, '$1-').slice(0, 19);
+    });
+
+    async function loadItems() {
+      showLoading('listContainer');
+      hideError();
+      try {
+        const data = await apiFetch('/clients');
+        renderTable(data || []);
+      } catch (err) { showError(err.message); }
+    }
+
+    function renderTable(items) {
+      const container = document.getElementById('listContainer');
+      if (!items.length) { container.innerHTML = `<p class="no-data">${t('common.noData')}</p>`; return; }
+      container.innerHTML = `
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead><tr>
+              <th>${t('common.id')}</th>
+              <th>${t('clients.name')}</th>
+              <th>${t('clients.email')}</th>
+              <th>${t('common.actions')}</th>
+            </tr></thead>
+            <tbody>${items.map(item => `
+              <tr>
+                <td>#${item.id}</td>
+                <td>${item.name}</td>
+                <td>${item.email}</td>
+                <td>
+                  <button class="btn-icon" onclick="openEdit(${item.id}, '${escStr(item.name)}', '${escStr(item.email)}')">✏️</button>
+                  <button class="btn-icon danger" onclick="confirmDelete(${item.id})">🗑️</button>
+                </td>
+              </tr>`).join('')}
+            </tbody>
+          </table>
+        </div>`;
+    }
+
+    function openEdit(id, name, email) {
+      editId = id;
+      document.getElementById('modalTitle').textContent = t('clients.edit');
+      const form = document.getElementById('itemForm');
+      form.name.value = name; 
+      form.email.value = email; 
+      form.card.value = '';
+      form.password.value = '';
+      form.repeatPassword.value = '';
+      
+      document.querySelectorAll('.new-only').forEach(el => el.style.display = 'none');
+      document.querySelector('[name="password"]').required = false;
+      document.querySelector('[name="repeatPassword"]').required = false;
+      openModal();
+    }
+
+    document.getElementById('addBtn').addEventListener('click', () => {
+      editId = null;
+      document.getElementById('modalTitle').textContent = t('clients.add');
+      document.getElementById('itemForm').reset();
+      document.querySelectorAll('.new-only').forEach(el => el.style.display = '');
+      
+      document.querySelector('[name="password"]').required = true;
+      document.querySelector('[name="repeatPassword"]').required = true;
+      openModal();
+    });
+
+    document.getElementById('itemForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const form = e.target;
+      const btn = document.getElementById('modalSubmit');
+      
+      const name = form.name.value;
+      const email = form.email.value;
+      const card = form.card.value;
+
+      const cardRegex = /^\d{4}-\d{4}-\d{4}-\d{4}$/;
+      if (card && !cardRegex.test(card)) {
+        document.getElementById('modalErrorBox').textContent = getLang() === 'uk' ? 'Невірний формат картки (XXXX-XXXX-XXXX-XXXX).' : 'Invalid card format.';
+        document.getElementById('modalErrorBox').classList.remove('hidden');
+        return;
+      }
+
+      if (!editId) {
+        const password = form.password.value;
+        const repeatPassword = form.repeatPassword.value;
+        const pwRegex = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#!$%^&-+=()])(?=\S+$).{8,20}$/;
+        
+        if (!pwRegex.test(password)) {
+          document.getElementById('modalErrorBox').textContent = getLang() === 'uk' ? 'Пароль має бути 8-20 символів, містити цифри, літери та спецсимволи.' : 'Password must be complex.';
+          document.getElementById('modalErrorBox').classList.remove('hidden');
+          return;
+        }
+        if (password !== repeatPassword) {
+          document.getElementById('modalErrorBox').textContent = getLang() === 'uk' ? 'Паролі не збігаються.' : 'Passwords do not match.';
+          document.getElementById('modalErrorBox').classList.remove('hidden');
+          return;
+        }
+      }
+
+      btn.disabled = true;
+      try {
+        if (editId) {
+          const body = { name, email };
+          if (card) body.card = card;
+          
+          await apiFetch(`/clients/${editId}`, { method: 'PUT', body: JSON.stringify(body) });
+        } else {
+          const body = { name, email, password: form.password.value, repeatPassword: form.repeatPassword.value };
+          if (card) body.card = card;
+          
+          await apiFetch('/clients', { method: 'POST', body: JSON.stringify(body) });
+        }
+        closeModal();
+        loadItems();
+      } catch (err) {
+        document.getElementById('modalErrorBox').textContent = err.message;
+        document.getElementById('modalErrorBox').classList.remove('hidden');
+      } finally { btn.disabled = false; }
+    });
+
+    function confirmDelete(id) {
+      showConfirm(getLang() === 'uk' ? 'Видалити цього клієнта?' : 'Delete this client?', async () => {
+        await apiFetch(`/clients/${id}`, { method: 'DELETE' });
+        loadItems();
+      });
+    }
+
+    loadItems();
+  </script>
+</body>
+</html>

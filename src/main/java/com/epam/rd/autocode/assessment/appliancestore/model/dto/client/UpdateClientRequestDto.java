@@ -9,10 +9,8 @@ import lombok.Data;
 public class UpdateClientRequestDto {
     @NotBlank
     private String name;
-    @NotBlank
     @Email
     private String email;
-    @NotBlank
     @Card
     private String card;
 }

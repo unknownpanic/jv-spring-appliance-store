@@ -1,6 +1,6 @@
 package com.epam.rd.autocode.assessment.appliancestore.repository;
 
-import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.Predicate;
 import java.util.Set;
 import org.springframework.data.jpa.domain.Specification;
 
@@ -9,9 +9,17 @@ public interface SpecificationProvider<T> {
 
     default Specification<T> getSpecification(Set<String> params) {
         return (root, query, criteriaBuilder) -> {
-            CriteriaBuilder.In<String> inPredicate = criteriaBuilder.in(root.get(getAttribute()));
-            params.forEach(inPredicate::value);
-            return criteriaBuilder.and(inPredicate);
+            if (params == null || params.isEmpty()) {
+                return criteriaBuilder.disjunction();
+            }
+            Predicate[] likes = params.stream()
+                    .map(param -> criteriaBuilder.like(
+                            root.get(getAttribute()),
+                            "%" + param + "%"
+                    ))
+                    .toArray(Predicate[]::new);
+
+            return criteriaBuilder.or(likes);
         };
     }
 }

@@ -14,5 +14,4 @@ public interface ManufacturerService {
     ManufacturerResponseDto updateById(Long id, CreateManufacturerRequestDto requestDto);
 
     void deleteById(Long id);
-
 }

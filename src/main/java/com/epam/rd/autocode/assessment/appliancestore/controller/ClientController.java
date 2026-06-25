@@ -9,6 +9,7 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,6 +30,12 @@ public class ClientController {
     @PreAuthorize("hasRole('EMPLOYEE')")
     public List<ClientResponseDto> getAll() {
         return clientService.getAll();
+    }
+
+    @GetMapping("/me")
+    @PreAuthorize("hasRole('CLIENT')")
+    public ClientResponseDto getMyProfile(Authentication authentication) {
+        return clientService.getByEmail(authentication.getName());
     }
 
     @GetMapping("/{id}")
@@ -53,6 +60,15 @@ public class ClientController {
             @RequestBody @Valid UpdateClientRequestDto requestDto
     ) {
         return clientService.updateById(id, requestDto);
+    }
+
+    @PutMapping("/me")
+    @PreAuthorize("hasRole('CLIENT')")
+    public ClientResponseDto updateMyProfile(
+            Authentication authentication,
+            @RequestBody @Valid UpdateClientRequestDto requestDto
+    ) {
+        return clientService.updateByEmail(authentication.getName(), requestDto);
     }
 
     @DeleteMapping("/{id}")

@@ -1,4 +1,4 @@
-package com.epam.rd.autocode.assessment.appliancestore.service.impl;
+package com.epam.rd.autocode.assessment.appliancestore.security;
 
 import com.epam.rd.autocode.assessment.appliancestore.service.LoginAttemptService;
 import java.util.Map;

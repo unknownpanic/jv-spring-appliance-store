@@ -24,7 +24,6 @@ public class CreateClientRequestDto {
     private String password;
     @NotBlank
     private String repeatPassword;
-    @NotBlank
     @Card
     private String card;
 }
