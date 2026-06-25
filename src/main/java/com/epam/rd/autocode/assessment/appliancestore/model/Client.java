@@ -15,6 +15,6 @@ import lombok.Setter;
 @AllArgsConstructor
 @Table(name = "clients")
 public class Client extends User {
-    @Column(nullable = false)
+    @Column
     private String card;
 }

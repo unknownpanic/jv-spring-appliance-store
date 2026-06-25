@@ -10,6 +10,9 @@ public class CardValidator implements ConstraintValidator<Card, String> {
 
     @Override
     public boolean isValid(String card, ConstraintValidatorContext constraintValidatorContext) {
-        return card != null && Pattern.compile(PATTERN_OF_CARD).matcher(card).matches();
+        if (card == null || card.trim().isEmpty()) {
+            return true;
+        }
+        return Pattern.compile(PATTERN_OF_CARD).matcher(card).matches();
     }
 }

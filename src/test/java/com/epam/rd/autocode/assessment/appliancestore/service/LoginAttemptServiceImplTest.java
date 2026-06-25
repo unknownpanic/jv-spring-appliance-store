@@ -1,6 +1,6 @@
 package com.epam.rd.autocode.assessment.appliancestore.service;
 
-import com.epam.rd.autocode.assessment.appliancestore.service.impl.LoginAttemptServiceImpl;
+import com.epam.rd.autocode.assessment.appliancestore.security.LoginAttemptServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertFalse;

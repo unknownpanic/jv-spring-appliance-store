@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Register — ApplianceStore</title>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body class="auth-page">
+  <div class="auth-card">
+    <div class="auth-logo">🔌</div>
+    <h1 class="auth-title">ApplianceStore</h1>
+    <p class="auth-subtitle" data-i18n="auth.registerTitle">Create a new account</p>
+
+    <div id="errorBox" class="error-box hidden"></div>
+    <div id="successBox" class="success-box hidden"></div>
+
+    <form id="registerForm">
+      <div class="field">
+        <label data-i18n="auth.name">Full Name</label>
+        <input type="text" id="name" required/>
+      </div>
+      <div class="field">
+        <label data-i18n="auth.email">Email</label>
+        <input type="email" id="email" required/>
+      </div>
+      <div class="field">
+        <label>Картка / Card</label>
+        <input type="text" id="card" placeholder="XXXX-XXXX-XXXX-XXXX" maxlength="19"/>
+      </div>
+      <div class="field">
+        <label data-i18n="auth.password">Password</label>
+        <input type="password" id="password" required/>
+      </div>
+      <div class="field">
+        <label>Повторіть пароль / Repeat Password</label>
+        <input type="password" id="repeatPassword" required/>
+      </div>
+      <button type="submit" class="btn-primary full" id="submitBtn">
+        <span data-i18n="auth.registerBtn">Create Account</span>
+      </button>
+    </form>
+
+    <p class="auth-footer">
+      <span data-i18n="auth.hasAccount">Already have an account?</span>
+      <a href="login.html" data-i18n="auth.login">Login</a>
+    </p>
+    <div class="lang-center">
+      <button class="btn-lang" id="langToggle">EN</button>
+    </div>
+  </div>
+
+  <script src="i18n.js"></script>
+  <script src="auth.js"></script>
+  <script>
+    initLang();
+
+    document.getElementById('card').addEventListener('input', function (e) {
+      this.value = this.value.replace(/\D/g, '').replace(/(\d{4})(?=\d)/g, '$1-').slice(0, 19);
+    });
+
+    document.getElementById('registerForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = document.getElementById('submitBtn');
+      hideError();
+
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const card = document.getElementById('card').value;
+      const password = document.getElementById('password').value;
+      const repeatPassword = document.getElementById('repeatPassword').value;
+
+      const cardRegex = /^\d{4}-\d{4}-\d{4}-\d{4}$/;
+      if (card && !cardRegex.test(card)) {
+        showError(getLang() === 'uk' ? 'Невірний формат картки (XXXX-XXXX-XXXX-XXXX).' : 'Invalid card format.');
+        return;
+      }
+
+      const pwRegex = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#!$%^&-+=()])(?=\S+$).{8,20}$/;
+      if (!pwRegex.test(password)) {
+        showError(getLang() === 'uk' 
+          ? 'Пароль має містити 8-20 символів, цифри, великі/малі літери та спецсимволи (@#!$%^&-+=()).' 
+          : 'Password must be 8-20 chars long, contain digits, uppercase, lowercase, and special characters.');
+        return;
+      }
+      if (password !== repeatPassword) {
+        showError(getLang() === 'uk' ? 'Паролі не збігаються.' : 'Passwords do not match.');
+        return;
+      }
+
+      btn.disabled = true;
+      try {
+        await apiFetch('/auth/registration', {
+          method: 'POST',
+          body: JSON.stringify({ name, email, card, password, repeatPassword })
+        });
+        document.getElementById('successBox').classList.remove('hidden');
+        document.getElementById('successBox').textContent =
+          getLang() === 'uk' ? 'Реєстрацію успішно завершено! Перенаправлення...' : 'Registration successful! Redirecting...';
+        document.getElementById('registerForm').classList.add('hidden');
+        setTimeout(() => window.location.href = 'login.html', 2000);
+      } catch (err) {
+        showError(err.message);
+        btn.disabled = false;
+      }
+    });
+  </script>
+</body>
+</html>

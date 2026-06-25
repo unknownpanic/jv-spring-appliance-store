@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Orders — ApplianceStore</title>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+  <nav class="navbar">
+    <a href="index.html" class="nav-logo">🔌 ApplianceStore</a>
+    <div class="nav-links" id="navLinks">
+      <a href="index.html" data-i18n="nav.home">Home</a>
+      <a href="appliances.html" data-i18n="nav.appliances">Appliances</a>
+      <a href="orders.html" class="auth-only active" data-i18n="nav.orders">Orders</a>
+      <a href="clients.html" class="employee-only" data-i18n="nav.clients">Clients</a>
+      <a href="employees.html" class="employee-only" data-i18n="nav.employees">Employees</a>
+      <a href="manufacturers.html" class="employee-only" data-i18n="nav.manufacturers">Manufacturers</a>
+    </div>
+    <div class="nav-actions">
+      <button class="btn-lang" id="langToggle">EN</button>
+      <div class="auth-only" id="userInfo">
+        <span id="userEmail"></span>
+        <span id="userRole" class="badge"></span>
+        <button onclick="logout()" data-i18n="nav.logout">Logout</button>
+      </div>
+      <div class="guest-only" id="guestActions">
+        <a href="login.html" class="btn-outline" data-i18n="nav.login">Login</a>
+      </div>
+    </div>
+    <button class="burger" id="burger">☰</button>
+  </nav>
+
+  <main class="container">
+    <div class="page-header">
+      <h1 data-i18n="orders.title">Orders</h1>
+      <button class="btn-primary" id="addBtn" data-i18n="orders.add">New Order</button>
+    </div>
+
+    <div id="errorBox" class="error-box hidden"></div>
+    <div id="listContainer"></div>
+    <div id="pagination" class="pagination"></div>
+  </main>
+
+  <!-- Order Form Modal -->
+  <div class="modal-overlay hidden" id="modal">
+    <div class="modal modal-wide">
+      <div class="modal-header">
+        <h2 id="modalTitle">New Order</h2>
+        <button class="modal-close" id="modalClose">✕</button>
+      </div>
+      <div id="modalErrorBox" class="error-box hidden"></div>
+      <form id="itemForm" class="modal-form">
+        <div class="rows-section">
+          <label data-i18n="orders.rows">Order Items</label>
+          <div id="rowsContainer"></div>
+          <button type="button" class="btn-outline small" id="addRowBtn">+ <span data-i18n="orders.addItem">Add Item</span></button>
+        </div>
+        <div class="modal-actions">
+          <button type="button" class="btn-outline" id="modalCancel" data-i18n="common.cancel">Cancel</button>
+          <button type="submit" class="btn-primary" id="modalSubmit" data-i18n="common.save">Save</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Confirm Dialog -->
+  <div class="modal-overlay hidden" id="confirmModal">
+    <div class="modal confirm-modal">
+      <p id="confirmMsg"></p>
+      <div class="modal-actions">
+        <button class="btn-outline" id="confirmNo" data-i18n="common.cancel">Cancel</button>
+        <button class="btn-danger" id="confirmYes" data-i18n="common.yes">Yes</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="i18n.js"></script>
+  <script src="auth.js"></script>
+  <script src="crud.js"></script>
+  <script>
+    initNav();
+    requireAuth();
+    applyLang();
+
+    let currentPage = 0;
+    let editId = null;
+
+    function addRow(applianceId = '', quantity = '') {
+      const container = document.getElementById('rowsContainer');
+      const div = document.createElement('div');
+      div.className = 'order-row';
+      div.innerHTML = `
+        <input type="number" placeholder="${t('orders.applianceId')}" class="row-appliance" value="${applianceId}" required min="1"/>
+        <input type="number" placeholder="${t('orders.quantity')}" class="row-quantity" value="${quantity}" required min="1"/>
+        <button type="button" class="btn-icon danger row-remove">✕</button>
+      `;
+      div.querySelector('.row-remove').addEventListener('click', () => {
+        if (document.querySelectorAll('.order-row').length > 1) div.remove();
+      });
+      container.appendChild(div);
+    }
+
+    document.getElementById('addRowBtn').addEventListener('click', () => addRow());
+
+    async function loadItems(page = 0) {
+      currentPage = page;
+      showLoading('listContainer');
+      hideError();
+      try {
+        const endpoint = isEmployee() 
+          ? `/orders?page=${page}&size=10&sort=id` 
+          : `/orders/my?page=${page}&size=10&sort=id`;
+          
+        const data = await apiFetch(endpoint);
+        renderList(data.content || [], data.totalPages || 0, page);
+      } catch (err) {
+        showError(err.message);
+      }
+    }
+
+    function renderList(items, totalPages, page) {
+      const container = document.getElementById('listContainer');
+      if (!items.length) { container.innerHTML = `<p class="no-data">${t('common.noData')}</p>`; renderPagination(0,0); return; }
+      container.innerHTML = items.map(item => `
+        <div class="list-item" data-id="${item.id}">
+          <div class="list-item-main" onclick="toggleExpand(${item.id})">
+            <span class="item-id">#${item.id}</span>
+            <div class="item-info">
+              <span class="item-name">${isEmployee() ? t('orders.clientId') + ' #' + item.clientId : t('orders.title') + ' #' + item.id}</span>
+              <span class="item-sub">${(item.rows||[]).length} ${getLang()==='uk'?'позиції':'items'}</span>
+            </div>
+            <div class="item-right">
+              <span class="badge ${item.approved ? 'badge-green' : 'badge-yellow'}">${item.approved ? t('common.approved') : t('common.pending')}</span>
+              ${isEmployee() && !item.approved ? `<button class="btn-icon approve" onclick="event.stopPropagation(); confirmApprove(${item.id})" title="${t('orders.approveOrder')}">✔️</button>` : ''}
+              <button class="btn-icon" onclick="event.stopPropagation(); openEdit(${item.id})" title="${t('common.edit')}">✏️</button>
+              ${isEmployee() ? `<button class="btn-icon danger" onclick="event.stopPropagation(); confirmDelete(${item.id})" title="${t('common.delete')}">🗑️</button>` : ''}
+              <span class="expand-icon">▾</span>
+            </div>
+          </div>
+          <div class="list-item-detail hidden" id="detail-${item.id}">
+            <div class="detail-grid">
+              <div><span class="detail-label">${t('orders.clientId')}</span>${item.clientId}</div>
+              ${item.employeeId ? `<div><span class="detail-label">${t('orders.employeeId')}</span>${item.employeeId}</div>` : ''}
+            </div>
+            ${(item.rows||[]).length ? `
+              <table class="detail-table">
+                <thead><tr><th>${t('orders.applianceId')}</th><th>${t('orders.quantity')}</th><th>${t('orders.amount')}</th></tr></thead>
+                <tbody>${item.rows.map(r => `<tr><td>${r.applianceId}</td><td>${r.number}</td><td>$${r.amount}</td></tr>`).join('')}</tbody>
+              </table>` : ''}
+          </div>
+        </div>
+      `).join('');
+      renderPagination(page, totalPages);
+    }
+
+    function toggleExpand(id) {
+      document.getElementById('detail-' + id).classList.toggle('hidden');
+    }
+
+    function openEdit(id) {
+      editId = id;
+      document.getElementById('modalTitle').textContent = t('orders.edit');
+      document.getElementById('rowsContainer').innerHTML = '';
+      apiFetch(`/orders/${id}`).then(data => {
+        const rows = data.rows || [];
+        if (rows.length) rows.forEach(r => addRow(r.applianceId, r.number || r.quantity));
+        else addRow();
+        openModal();
+      }).catch(err => showError(err.message));
+    }
+
+    document.getElementById('addBtn').addEventListener('click', () => {
+      editId = null;
+      document.getElementById('modalTitle').textContent = t('orders.add');
+      document.getElementById('rowsContainer').innerHTML = '';
+      addRow();
+      openModal();
+    });
+
+    document.getElementById('itemForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const rowEls = document.querySelectorAll('.order-row');
+      const rows = Array.from(rowEls).map(r => ({
+        applianceId: Number(r.querySelector('.row-appliance').value),
+        quantity: Number(r.querySelector('.row-quantity').value)
+      }));
+      const btn = document.getElementById('modalSubmit');
+      btn.disabled = true;
+      try {
+        if (editId) await apiFetch(`/orders/${editId}`, { method: 'PUT', body: JSON.stringify({ rows }) });
+        else await apiFetch('/orders', { method: 'POST', body: JSON.stringify({ rows }) });
+        closeModal();
+        loadItems(currentPage);
+      } catch (err) {
+        document.getElementById('modalErrorBox').textContent = err.message;
+        document.getElementById('modalErrorBox').classList.remove('hidden');
+      } finally {
+        btn.disabled = false;
+      }
+    });
+
+    function confirmDelete(id) {
+      showConfirm(getLang() === 'uk' ? 'Видалити це замовлення?' : 'Delete this order?', async () => {
+        await apiFetch(`/orders/${id}`, { method: 'DELETE' });
+        loadItems(currentPage);
+      });
+    }
+
+    function confirmApprove(id) {
+      showConfirm(getLang() === 'uk' ? 'Затвердити це замовлення?' : 'Approve this order?', async () => {
+        await apiFetch(`/orders/${id}/approve`, { method: 'PATCH' });
+        loadItems(currentPage);
+      });
+    }
+
+    loadItems(0);
+  </script>
+</body>
+</html>

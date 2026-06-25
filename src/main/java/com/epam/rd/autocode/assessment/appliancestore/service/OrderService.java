@@ -17,4 +17,6 @@ public interface OrderService {
     OrderResponseDto updateById(Long id, CreateOrderRequestDto requestDto);
 
     void deleteById(Long id);
+
+    Page<OrderResponseDto> getMyOrders(String userEmail, Pageable pageable);
 }

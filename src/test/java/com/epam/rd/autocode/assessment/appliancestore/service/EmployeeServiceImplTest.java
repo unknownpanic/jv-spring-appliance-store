@@ -10,6 +10,7 @@ import com.epam.rd.autocode.assessment.appliancestore.model.dto.employee.Employe
 import com.epam.rd.autocode.assessment.appliancestore.model.dto.employee.UpdateEmployeeRequestDto;
 import com.epam.rd.autocode.assessment.appliancestore.repository.EmployeeRepository;
 import com.epam.rd.autocode.assessment.appliancestore.repository.RoleRepository;
+import com.epam.rd.autocode.assessment.appliancestore.repository.UserRepository;
 import com.epam.rd.autocode.assessment.appliancestore.service.impl.EmployeeServiceImpl;
 import java.util.List;
 import java.util.Optional;
@@ -43,6 +44,8 @@ class EmployeeServiceImplTest {
     private PasswordEncoder passwordEncoder;
     @Mock
     private RoleRepository roleRepository;
+    @Mock
+    private UserRepository userRepository;
     @InjectMocks
     private EmployeeServiceImpl employeeService;
     private Employee employee;
@@ -159,10 +162,9 @@ class EmployeeServiceImplTest {
     @Test
     void updateById_ShouldUpdateAndReturnEmployee() {
         UpdateEmployeeRequestDto requestDto = new UpdateEmployeeRequestDto();
-        requestDto.setEmail("new_employee@test.com");
+        requestDto.setEmail("employee@test.com");
 
         when(employeeRepository.findById(1L)).thenReturn(Optional.of(employee));
-        when(employeeRepository.findByEmail(requestDto.getEmail())).thenReturn(Optional.empty());
         doNothing().when(employeeMapper).updateEmployee(employee, requestDto);
         when(employeeRepository.save(employee)).thenReturn(employee);
         when(employeeMapper.toDto(employee)).thenReturn(employeeResponseDto);
@@ -183,9 +185,8 @@ class EmployeeServiceImplTest {
         otherEmployee.setId(2L);
         otherEmployee.setEmail("used@test.com");
 
+        when(userRepository.existsByEmail("used@test.com")).thenReturn(true);
         when(employeeRepository.findById(1L)).thenReturn(Optional.of(employee));
-        when(employeeRepository.findByEmail(requestDto.getEmail())).thenReturn(Optional.of(otherEmployee));
-
         RegistrationException exception = assertThrows(RegistrationException.class,
                 () -> employeeService.updateById(1L, requestDto));
 
