@@ -1,0 +1,485 @@
+databaseChangeLog:
+  - changeSet:
+      id: insert-clients
+      author: maxima
+      changes:
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: name
+                  value: John Smith
+              - column:
+                  name: email
+                  value: john.smith@email.com
+              - column:
+                  name: password
+                  value: $2a$10$3jAABay0fHLocE/rHn/m6OLoycxnoKYRy5u57gCrXtrHwufidB3A6
+              - column:
+                  name: is_deleted
+                  valueBoolean: false
+        - insert:
+            tableName: clients
+            columns:
+              - column:
+                  name: id
+                  valueNumeric: 1
+              - column:
+                  name: card
+                  value: 4532-1234-5678-9010
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: name
+                  value: Maria Garcia
+              - column:
+                  name: email
+                  value: maria.garcia@email.com
+              - column:
+                  name: password
+                  value: $2a$10$3jAABay0fHLocE/rHn/m6OLoycxnoKYRy5u57gCrXtrHwufidB3A6
+              - column:
+                  name: is_deleted
+                  valueBoolean: false
+        - insert:
+            tableName: clients
+            columns:
+              - column:
+                  name: id
+                  valueNumeric: 2
+              - column:
+                  name: card
+                  value: 5425-2345-6789-0123
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: name
+                  value: Anna Mueller
+              - column:
+                  name: email
+                  value: anna.mueller@email.com
+              - column:
+                  name: password
+                  value: $2a$10$3jAABay0fHLocE/rHn/m6OLoycxnoKYRy5u57gCrXtrHwufidB3A6
+              - column:
+                  name: is_deleted
+                  valueBoolean: false
+        - insert:
+            tableName: clients
+            columns:
+              - column:
+                  name: id
+                  valueNumeric: 3
+              - column:
+                  name: card
+                  value: 6011-3456-7890-1234
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: name
+                  value: James Wilson
+              - column:
+                  name: email
+                  value: james.wilson@email.com
+              - column:
+                  name: password
+                  value: $2a$10$3jAABay0fHLocE/rHn/m6OLoycxnoKYRy5u57gCrXtrHwufidB3A6
+              - column:
+                  name: is_deleted
+                  valueBoolean: false
+        - insert:
+            tableName: clients
+            columns:
+              - column:
+                  name: id
+                  valueNumeric: 4
+              - column:
+                  name: card
+                  value: 3782-822463-51005
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: name
+                  value: Patricia Brown
+              - column:
+                  name: email
+                  value: patricia.brown@email.com
+              - column:
+                  name: password
+                  value: $2a$10$3jAABay0fHLocE/rHn/m6OLoycxnoKYRy5u57gCrXtrHwufidB3A6
+              - column:
+                  name: is_deleted
+                  valueBoolean: false
+        - insert:
+            tableName: clients
+            columns:
+              - column:
+                  name: id
+                  valueNumeric: 5
+              - column:
+                  name: card
+                  value: 4916-4589-7823-6545
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: name
+                  value: Robert Taylor
+              - column:
+                  name: email
+                  value: robert.taylor@email.com
+              - column:
+                  name: password
+                  value: $2a$10$3jAABay0fHLocE/rHn/m6OLoycxnoKYRy5u57gCrXtrHwufidB3A6
+              - column:
+                  name: is_deleted
+                  valueBoolean: false
+        - insert:
+            tableName: clients
+            columns:
+              - column:
+                  name: id
+                  valueNumeric: 6
+              - column:
+                  name: card
+                  value: 5512-7834-5673-4562
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: name
+                  value: Catherine Martinez
+              - column:
+                  name: email
+                  value: catherine.martinez@email.com
+              - column:
+                  name: password
+                  value: $2a$10$3jAABay0fHLocE/rHn/m6OLoycxnoKYRy5u57gCrXtrHwufidB3A6
+              - column:
+                  name: is_deleted
+                  valueBoolean: false
+        - insert:
+            tableName: clients
+            columns:
+              - column:
+                  name: id
+                  valueNumeric: 7
+              - column:
+                  name: card
+                  value: 6011-5673-8234-5671
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: name
+                  value: Michael Johnson
+              - column:
+                  name: email
+                  value: michael.johnson@email.com
+              - column:
+                  name: password
+                  value: $2a$10$3jAABay0fHLocE/rHn/m6OLoycxnoKYRy5u57gCrXtrHwufidB3A6
+              - column:
+                  name: is_deleted
+                  valueBoolean: false
+        - insert:
+            tableName: clients
+            columns:
+              - column:
+                  name: id
+                  valueNumeric: 8
+              - column:
+                  name: card
+                  value: 3714-496353-98431
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: name
+                  value: Linda Anderson
+              - column:
+                  name: email
+                  value: linda.anderson@email.com
+              - column:
+                  name: password
+                  value: $2a$10$3jAABay0fHLocE/rHn/m6OLoycxnoKYRy5u57gCrXtrHwufidB3A6
+              - column:
+                  name: is_deleted
+                  valueBoolean: false
+        - insert:
+            tableName: clients
+            columns:
+              - column:
+                  name: id
+                  valueNumeric: 9
+              - column:
+                  name: card
+                  value: 4539-3489-7234-5678
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: name
+                  value: David Thompson
+              - column:
+                  name: email
+                  value: david.thompson@email.com
+              - column:
+                  name: password
+                  value: $2a$10$3jAABay0fHLocE/rHn/m6OLoycxnoKYRy5u57gCrXtrHwufidB3A6
+              - column:
+                  name: is_deleted
+                  valueBoolean: false
+        - insert:
+            tableName: clients
+            columns:
+              - column:
+                  name: id
+                  valueNumeric: 10
+              - column:
+                  name: card
+                  value: 5417-8234-5689-1234
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: name
+                  value: Sandra White
+              - column:
+                  name: email
+                  value: sandra.white@email.com
+              - column:
+                  name: password
+                  value: $2a$10$3jAABay0fHLocE/rHn/m6OLoycxnoKYRy5u57gCrXtrHwufidB3A6
+              - column:
+                  name: is_deleted
+                  valueBoolean: false
+        - insert:
+            tableName: clients
+            columns:
+              - column:
+                  name: id
+                  valueNumeric: 11
+              - column:
+                  name: card
+                  value: 6012-3489-5673-8945
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: name
+                  value: Christopher Harris
+              - column:
+                  name: email
+                  value: christopher.harris@email.com
+              - column:
+                  name: password
+                  value: $2a$10$3jAABay0fHLocE/rHn/m6OLoycxnoKYRy5u57gCrXtrHwufidB3A6
+              - column:
+                  name: is_deleted
+                  valueBoolean: false
+        - insert:
+            tableName: clients
+            columns:
+              - column:
+                  name: id
+                  valueNumeric: 12
+              - column:
+                  name: card
+                  value: 3717-890123-88441
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: name
+                  value: Nancy Davis
+              - column:
+                  name: email
+                  value: nancy.davis@email.com
+              - column:
+                  name: password
+                  value: $2a$10$3jAABay0fHLocE/rHn/m6OLoycxnoKYRy5u57gCrXtrHwufidB3A6
+              - column:
+                  name: is_deleted
+                  valueBoolean: false
+        - insert:
+            tableName: clients
+            columns:
+              - column:
+                  name: id
+                  valueNumeric: 13
+              - column:
+                  name: card
+                  value: 4485-5634-8234-7845
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: name
+                  value: Daniel Lewis
+              - column:
+                  name: email
+                  value: daniel.lewis@email.com
+              - column:
+                  name: password
+                  value: $2a$10$3jAABay0fHLocE/rHn/m6OLoycxnoKYRy5u57gCrXtrHwufidB3A6
+              - column:
+                  name: is_deleted
+                  valueBoolean: false
+        - insert:
+            tableName: clients
+            columns:
+              - column:
+                  name: id
+                  valueNumeric: 14
+              - column:
+                  name: card
+                  value: 5519-8234-5673-6734
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: name
+                  value: Karen Clark
+              - column:
+                  name: email
+                  value: karen.clark@email.com
+              - column:
+                  name: password
+                  value: $2a$10$3jAABay0fHLocE/rHn/m6OLoycxnoKYRy5u57gCrXtrHwufidB3A6
+              - column:
+                  name: is_deleted
+                  valueBoolean: false
+        - insert:
+            tableName: clients
+            columns:
+              - column:
+                  name: id
+                  valueNumeric: 15
+              - column:
+                  name: card
+                  value: 6011-6734-8234-5670
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: name
+                  value: Paul Rodriguez
+              - column:
+                  name: email
+                  value: paul.rodriguez@email.com
+              - column:
+                  name: password
+                  value: $2a$10$3jAABay0fHLocE/rHn/m6OLoycxnoKYRy5u57gCrXtrHwufidB3A6
+              - column:
+                  name: is_deleted
+                  valueBoolean: false
+        - insert:
+            tableName: clients
+            columns:
+              - column:
+                  name: id
+                  valueNumeric: 16
+              - column:
+                  name: card
+                  value: 3782-822464-51034
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: name
+                  value: Barbara Walker
+              - column:
+                  name: email
+                  value: barbara.walker@email.com
+              - column:
+                  name: password
+                  value: $2a$10$3jAABay0fHLocE/rHn/m6OLoycxnoKYRy5u57gCrXtrHwufidB3A6
+              - column:
+                  name: is_deleted
+                  valueBoolean: false
+        - insert:
+            tableName: clients
+            columns:
+              - column:
+                  name: id
+                  valueNumeric: 17
+              - column:
+                  name: card
+                  value: 4916-7823-6734-5645
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: name
+                  value: Matthew Hall
+              - column:
+                  name: email
+                  value: matthew.hall@email.com
+              - column:
+                  name: password
+                  value: $2a$10$3jAABay0fHLocE/rHn/m6OLoycxnoKYRy5u57gCrXtrHwufidB3A6
+              - column:
+                  name: is_deleted
+                  valueBoolean: false
+        - insert:
+            tableName: clients
+            columns:
+              - column:
+                  name: id
+                  valueNumeric: 18
+              - column:
+                  name: card
+                  value: 5512-8234-6734-5671
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: name
+                  value: Helen Young
+              - column:
+                  name: email
+                  value: helen.young@email.com
+              - column:
+                  name: password
+                  value: $2a$10$3jAABay0fHLocE/rHn/m6OLoycxnoKYRy5u57gCrXtrHwufidB3A6
+              - column:
+                  name: is_deleted
+                  valueBoolean: false
+        - insert:
+            tableName: clients
+            columns:
+              - column:
+                  name: id
+                  valueNumeric: 19
+              - column:
+                  name: card
+                  value: 6011-6734-7234-5671
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: name
+                  value: Mark King
+              - column:
+                  name: email
+                  value: mark.king@email.com
+              - column:
+                  name: password
+                  value: $2a$10$3jAABay0fHLocE/rHn/m6OLoycxnoKYRy5u57gCrXtrHwufidB3A6
+              - column:
+                  name: is_deleted
+                  valueBoolean: false
+        - insert:
+            tableName: clients
+            columns:
+              - column:
+                  name: id
+                  valueNumeric: 20
+              - column:
+                  name: card
+                  value: 3714-496354-98401

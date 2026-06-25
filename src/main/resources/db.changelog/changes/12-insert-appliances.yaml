@@ -1,0 +1,905 @@
+databaseChangeLog:
+  - changeSet:
+      id: insert-appliances
+      author: maxima
+      changes:
+        - insert:
+            tableName: appliances
+            columns:
+              - column:
+                  name: name
+                  value: Top-Load Washing Machine
+              - column:
+                  name: category
+                  value: BIG
+              - column:
+                  name: model
+                  value: WM-4000
+              - column:
+                  name: manufacturer_id
+                  value: 1
+              - column:
+                  name: power_type
+                  value: AC220
+              - column:
+                  name: characteristic
+                  value: 8kg capacity
+              - column:
+                  name: description
+                  value: Efficient washing machine with steam function
+              - column:
+                  name: power
+                  value: 2200
+              - column:
+                  name: price
+                  value: 450.00
+        - insert:
+            tableName: appliances
+            columns:
+              - column:
+                  name: name
+                  value: Front-Load Washing Machine
+              - column:
+                  name: category
+                  value: BIG
+              - column:
+                  name: model
+                  value: WF-5000
+              - column:
+                  name: manufacturer_id
+                  value: 2
+              - column:
+                  name: power_type
+                  value: AC220
+              - column:
+                  name: characteristic
+                  value: 10kg capacity
+              - column:
+                  name: description
+                  value: Premium washing machine with AI detection
+              - column:
+                  name: power
+                  value: 2500
+              - column:
+                  name: price
+                  value: 650.00
+        - insert:
+            tableName: appliances
+            columns:
+              - column:
+                  name: name
+                  value: Refrigerator
+              - column:
+                  name: category
+                  value: BIG
+              - column:
+                  name: model
+                  value: RF-600
+              - column:
+                  name: manufacturer_id
+                  value: 3
+              - column:
+                  name: power_type
+                  value: AC220
+              - column:
+                  name: characteristic
+                  value: 600L storage
+              - column:
+                  name: description
+                  value: Double door refrigerator with ice maker
+              - column:
+                  name: power
+                  value: 800
+              - column:
+                  name: price
+                  value: 1200.00
+        - insert:
+            tableName: appliances
+            columns:
+              - column:
+                  name: name
+                  value: Microwave Oven
+              - column:
+                  name: category
+                  value: SMALL
+              - column:
+                  name: model
+                  value: MW-1000
+              - column:
+                  name: manufacturer_id
+                  value: 4
+              - column:
+                  name: power_type
+                  value: AC220
+              - column:
+                  name: characteristic
+                  value: 30L capacity
+              - column:
+                  name: description
+                  value: Digital microwave with sensor cooking
+              - column:
+                  name: power
+                  value: 1000
+              - column:
+                  name: price
+                  value: 180.00
+        - insert:
+            tableName: appliances
+            columns:
+              - column:
+                  name: name
+                  value: Electric Kettle
+              - column:
+                  name: category
+                  value: SMALL
+              - column:
+                  name: model
+                  value: EK-1500
+              - column:
+                  name: manufacturer_id
+                  value: 5
+              - column:
+                  name: power_type
+                  value: AC220
+              - column:
+                  name: characteristic
+                  value: 1.5L capacity
+              - column:
+                  name: description
+                  value: Stainless steel electric kettle with fast heating
+              - column:
+                  name: power
+                  value: 1500
+              - column:
+                  name: price
+                  value: 45.00
+        - insert:
+            tableName: appliances
+            columns:
+              - column:
+                  name: name
+                  value: Dishwasher
+              - column:
+                  name: category
+                  value: BIG
+              - column:
+                  name: model
+                  value: DW-800
+              - column:
+                  name: manufacturer_id
+                  value: 6
+              - column:
+                  name: power_type
+                  value: AC220
+              - column:
+                  name: characteristic
+                  value: 14 place settings
+              - column:
+                  name: description
+                  value: Energy-efficient dishwasher with multiple cycles
+              - column:
+                  name: power
+                  value: 2000
+              - column:
+                  name: price
+                  value: 520.00
+        - insert:
+            tableName: appliances
+            columns:
+              - column:
+                  name: name
+                  value: Toaster
+              - column:
+                  name: category
+                  value: SMALL
+              - column:
+                  name: model
+                  value: TT-200
+              - column:
+                  name: manufacturer_id
+                  value: 7
+              - column:
+                  name: power_type
+                  value: AC220
+              - column:
+                  name: characteristic
+                  value: 4 slots
+              - column:
+                  name: description
+                  value: 4-slot toaster with bagel and defrost settings
+              - column:
+                  name: power
+                  value: 1800
+              - column:
+                  name: price
+                  value: 65.00
+        - insert:
+            tableName: appliances
+            columns:
+              - column:
+                  name: name
+                  value: Coffee Maker
+              - column:
+                  name: category
+                  value: SMALL
+              - column:
+                  name: model
+                  value: CM-1200
+              - column:
+                  name: manufacturer_id
+                  value: 8
+              - column:
+                  name: power_type
+                  value: AC110
+              - column:
+                  name: characteristic
+                  value: 12 cup capacity
+              - column:
+                  name: description
+                  value: Programmable coffee maker with thermal carafe
+              - column:
+                  name: power
+                  value: 1200
+              - column:
+                  name: price
+                  value: 90.00
+        - insert:
+            tableName: appliances
+            columns:
+              - column:
+                  name: name
+                  value: Blender
+              - column:
+                  name: category
+                  value: SMALL
+              - column:
+                  name: model
+                  value: BL-1000
+              - column:
+                  name: manufacturer_id
+                  value: 9
+              - column:
+                  name: power_type
+                  value: AC220
+              - column:
+                  name: characteristic
+                  value: 1.5L pitcher
+              - column:
+                  name: description
+                  value: High-power blender with multiple speed settings
+              - column:
+                  name: power
+                  value: 1000
+              - column:
+                  name: price
+                  value: 85.00
+        - insert:
+            tableName: appliances
+            columns:
+              - column:
+                  name: name
+                  value: Oven Range
+              - column:
+                  name: category
+                  value: BIG
+              - column:
+                  name: model
+                  value: OR-3000
+              - column:
+                  name: manufacturer_id
+                  value: 10
+              - column:
+                  name: power_type
+                  value: AC220
+              - column:
+                  name: characteristic
+                  value: Double oven
+              - column:
+                  name: description
+                  value: Electric range with convection cooking
+              - column:
+                  name: power
+                  value: 4500
+              - column:
+                  name: price
+                  value: 850.00
+        - insert:
+            tableName: appliances
+            columns:
+              - column:
+                  name: name
+                  value: Air Fryer
+              - column:
+                  name: category
+                  value: SMALL
+              - column:
+                  name: model
+                  value: AF-800
+              - column:
+                  name: manufacturer_id
+                  value: 11
+              - column:
+                  name: power_type
+                  value: AC220
+              - column:
+                  name: characteristic
+                  value: 5L capacity
+              - column:
+                  name: description
+                  value: Compact air fryer with digital controls
+              - column:
+                  name: power
+                  value: 1500
+              - column:
+                  name: price
+                  value: 120.00
+        - insert:
+            tableName: appliances
+            columns:
+              - column:
+                  name: name
+                  value: Vacuum Cleaner
+              - column:
+                  name: category
+                  value: SMALL
+              - column:
+                  name: model
+                  value: VC-2000
+              - column:
+                  name: manufacturer_id
+                  value: 12
+              - column:
+                  name: power_type
+                  value: AC220
+              - column:
+                  name: characteristic
+                  value: 2L dust capacity
+              - column:
+                  name: description
+                  value: Cordless vacuum with HEPA filter
+              - column:
+                  name: power
+                  value: 350
+              - column:
+                  name: price
+                  value: 350.00
+        - insert:
+            tableName: appliances
+            columns:
+              - column:
+                  name: name
+                  value: Washing Machine Semi-Auto
+              - column:
+                  name: category
+                  value: BIG
+              - column:
+                  name: model
+                  value: WMS-1500
+              - column:
+                  name: manufacturer_id
+                  value: 13
+              - column:
+                  name: power_type
+                  value: AC220
+              - column:
+                  name: characteristic
+                  value: 6.5kg capacity
+              - column:
+                  name: description
+                  value: Semi-automatic washing machine
+              - column:
+                  name: power
+                  value: 1500
+              - column:
+                  name: price
+                  value: 280.00
+        - insert:
+            tableName: appliances
+            columns:
+              - column:
+                  name: name
+                  value: LED Television
+              - column:
+                  name: category
+                  value: BIG
+              - column:
+                  name: model
+                  value: TV-55
+              - column:
+                  name: manufacturer_id
+                  value: 14
+              - column:
+                  name: power_type
+                  value: AC220
+              - column:
+                  name: characteristic
+                  value: 55 inch 4K
+              - column:
+                  name: description
+                  value: Smart LED TV with HDR support
+              - column:
+                  name: power
+                  value: 150
+              - column:
+                  name: price
+                  value: 600.00
+        - insert:
+            tableName: appliances
+            columns:
+              - column:
+                  name: name
+                  value: Microwave with Grill
+              - column:
+                  name: category
+                  value: SMALL
+              - column:
+                  name: model
+                  value: MWG-1200
+              - column:
+                  name: manufacturer_id
+                  value: 15
+              - column:
+                  name: power_type
+                  value: AC220
+              - column:
+                  name: characteristic
+                  value: 20L capacity
+              - column:
+                  name: description
+                  value: Microwave with integrated grill function
+              - column:
+                  name: power
+                  value: 1200
+              - column:
+                  name: price
+                  value: 220.00
+        - insert:
+            tableName: appliances
+            columns:
+              - column:
+                  name: name
+                  value: Food Mixer
+              - column:
+                  name: category
+                  value: SMALL
+              - column:
+                  name: model
+                  value: FM-800
+              - column:
+                  name: manufacturer_id
+                  value: 1
+              - column:
+                  name: power_type
+                  value: AC110
+              - column:
+                  name: characteristic
+                  value: 8-speed
+              - column:
+                  name: description
+                  value: Stand mixer with multiple attachments
+              - column:
+                  name: power
+                  value: 800
+              - column:
+                  name: price
+                  value: 200.00
+        - insert:
+            tableName: appliances
+            columns:
+              - column:
+                  name: name
+                  value: Electric Grill
+              - column:
+                  name: category
+                  value: SMALL
+              - column:
+                  name: model
+                  value: EG-2000
+              - column:
+                  name: manufacturer_id
+                  value: 2
+              - column:
+                  name: power_type
+                  value: AC220
+              - column:
+                  name: characteristic
+                  value: Non-stick surface
+              - column:
+                  name: description
+                  value: Indoor electric grill with adjustable temperature
+              - column:
+                  name: power
+                  value: 2000
+              - column:
+                  name: price
+                  value: 110.00
+        - insert:
+            tableName: appliances
+            columns:
+              - column:
+                  name: name
+                  value: Iron
+              - column:
+                  name: category
+                  value: SMALL
+              - column:
+                  name: model
+                  value: IR-1800
+              - column:
+                  name: manufacturer_id
+                  value: 3
+              - column:
+                  name: power_type
+                  value: AC220
+              - column:
+                  name: characteristic
+                  value: Steam generation
+              - column:
+                  name: description
+                  value: Steam iron with variable temperature
+              - column:
+                  name: power
+                  value: 1800
+              - column:
+                  name: price
+                  value: 75.00
+        - insert:
+            tableName: appliances
+            columns:
+              - column:
+                  name: name
+                  value: Hair Dryer
+              - column:
+                  name: category
+                  value: SMALL
+              - column:
+                  name: model
+                  value: HD-1600
+              - column:
+                  name: manufacturer_id
+                  value: 4
+              - column:
+                  name: power_type
+                  value: AC220
+              - column:
+                  name: characteristic
+                  value: Ionic technology
+              - column:
+                  name: description
+                  value: Professional hair dryer with ionic function
+              - column:
+                  name: power
+                  value: 1600
+              - column:
+                  name: price
+                  value: 95.00
+        - insert:
+            tableName: appliances
+            columns:
+              - column:
+                  name: name
+                  value: Portable Speaker
+              - column:
+                  name: category
+                  value: SMALL
+              - column:
+                  name: model
+                  value: PS-500
+              - column:
+                  name: manufacturer_id
+                  value: 5
+              - column:
+                  name: power_type
+                  value: ACCUMULATOR
+              - column:
+                  name: characteristic
+                  value: Waterproof
+              - column:
+                  name: description
+                  value: Portable Bluetooth speaker with 20-hour battery
+              - column:
+                  name: power
+                  value: 50
+              - column:
+                  name: price
+                  value: 150.00
+        - insert:
+            tableName: appliances
+            columns:
+              - column:
+                  name: name
+                  value: Slow Cooker
+              - column:
+                  name: category
+                  value: SMALL
+              - column:
+                  name: model
+                  value: SC-6000
+              - column:
+                  name: manufacturer_id
+                  value: 6
+              - column:
+                  name: power_type
+                  value: AC220
+              - column:
+                  name: characteristic
+                  value: 6L capacity
+              - column:
+                  name: description
+                  value: Programmable slow cooker with digital timer
+              - column:
+                  name: power
+                  value: 180
+              - column:
+                  name: price
+                  value: 110.00
+        - insert:
+            tableName: appliances
+            columns:
+              - column:
+                  name: name
+                  value: Electric Heater
+              - column:
+                  name: category
+                  value: SMALL
+              - column:
+                  name: model
+                  value: EH-2500
+              - column:
+                  name: manufacturer_id
+                  value: 7
+              - column:
+                  name: power_type
+                  value: AC220
+              - column:
+                  name: characteristic
+                  value: Portable design
+              - column:
+                  name: description
+                  value: Portable electric space heater with thermostat
+              - column:
+                  name: power
+                  value: 2500
+              - column:
+                  name: price
+                  value: 85.00
+        - insert:
+            tableName: appliances
+            columns:
+              - column:
+                  name: name
+                  value: Desk Lamp
+              - column:
+                  name: category
+                  value: SMALL
+              - column:
+                  name: model
+                  value: DL-LED
+              - column:
+                  name: manufacturer_id
+                  value: 8
+              - column:
+                  name: power_type
+                  value: AC110
+              - column:
+                  name: characteristic
+                  value: LED technology
+              - column:
+                  name: description
+                  value: LED desk lamp with brightness control
+              - column:
+                  name: power
+                  value: 20
+              - column:
+                  name: price
+                  value: 35.00
+        - insert:
+            tableName: appliances
+            columns:
+              - column:
+                  name: name
+                  value: Water Purifier
+              - column:
+                  name: category
+                  value: BIG
+              - column:
+                  name: model
+                  value: WP-RO
+              - column:
+                  name: manufacturer_id
+                  value: 9
+              - column:
+                  name: power_type
+                  value: AC220
+              - column:
+                  name: characteristic
+                  value: 8-stage purification
+              - column:
+                  name: description
+                  value: RO water purifier with UV sterilization
+              - column:
+                  name: power
+                  value: 75
+              - column:
+                  name: price
+                  value: 400.00
+        - insert:
+            tableName: appliances
+            columns:
+              - column:
+                  name: name
+                  value: Exhaust Fan
+              - column:
+                  name: category
+                  value: SMALL
+              - column:
+                  name: model
+                  value: EF-1000
+              - column:
+                  name: manufacturer_id
+                  value: 10
+              - column:
+                  name: power_type
+                  value: AC220
+              - column:
+                  name: characteristic
+                  value: Whisper-quiet
+              - column:
+                  name: description
+                  value: Wall-mounted exhaust fan with timer
+              - column:
+                  name: power
+                  value: 80
+              - column:
+                  name: price
+                  value: 60.00
+        - insert:
+            tableName: appliances
+            columns:
+              - column:
+                  name: name
+                  value: Doorbell Camera
+              - column:
+                  name: category
+                  value: SMALL
+              - column:
+                  name: model
+                  value: DC-HD
+              - column:
+                  name: manufacturer_id
+                  value: 11
+              - column:
+                  name: power_type
+                  value: AC110
+              - column:
+                  name: characteristic
+                  value: 1080p HD
+              - column:
+                  name: description
+                  value: WiFi video doorbell with two-way audio
+              - column:
+                  name: power
+                  value: 10
+              - column:
+                  name: price
+                  value: 180.00
+        - insert:
+            tableName: appliances
+            columns:
+              - column:
+                  name: name
+                  value: Robot Vacuum
+              - column:
+                  name: category
+                  value: SMALL
+              - column:
+                  name: model
+                  value: RV-3000
+              - column:
+                  name: manufacturer_id
+                  value: 12
+              - column:
+                  name: power_type
+                  value: ACCUMULATOR
+              - column:
+                  name: characteristic
+                  value: Smart mapping
+              - column:
+                  name: description
+                  value: Smart robot vacuum with app control
+              - column:
+                  name: power
+                  value: 100
+              - column:
+                  name: price
+                  value: 500.00
+        - insert:
+            tableName: appliances
+            columns:
+              - column:
+                  name: name
+                  value: Washing Machine Top Load
+              - column:
+                  name: category
+                  value: BIG
+              - column:
+                  name: model
+                  value: WML-6000
+              - column:
+                  name: manufacturer_id
+                  value: 13
+              - column:
+                  name: power_type
+                  value: AC220
+              - column:
+                  name: characteristic
+                  value: 7kg capacity
+              - column:
+                  name: description
+                  value: Top-load automatic washing machine
+              - column:
+                  name: power
+                  value: 2000
+              - column:
+                  name: price
+                  value: 380.00
+        - insert:
+            tableName: appliances
+            columns:
+              - column:
+                  name: name
+                  value: OLED Television
+              - column:
+                  name: category
+                  value: BIG
+              - column:
+                  name: model
+                  value: TV-65-OLED
+              - column:
+                  name: manufacturer_id
+                  value: 14
+              - column:
+                  name: power_type
+                  value: AC220
+              - column:
+                  name: characteristic
+                  value: 65 inch OLED
+              - column:
+                  name: description
+                  value: Premium OLED TV with quantum dot technology
+              - column:
+                  name: power
+                  value: 200
+              - column:
+                  name: price
+                  value: 1500.00
+        - insert:
+            tableName: appliances
+            columns:
+              - column:
+                  name: name
+                  value: Smart Refrigerator
+              - column:
+                  name: category
+                  value: BIG
+              - column:
+                  name: model
+                  value: SR-800
+              - column:
+                  name: manufacturer_id
+                  value: 15
+              - column:
+                  name: power_type
+                  value: AC220
+              - column:
+                  name: characteristic
+                  value: 800L with WiFi
+              - column:
+                  name: description
+                  value: Smart refrigerator with IoT connectivity
+              - column:
+                  name: power
+                  value: 900
+              - column:
+                  name: price
+                  value: 1800.00
