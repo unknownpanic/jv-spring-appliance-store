@@ -25,13 +25,6 @@ public class ApplianceSpecificationBuilder
                     .getSpecification(searchParameters.getNames()));
         }
 
-        if (searchParameters.getCategories() != null
-                && !searchParameters.getCategories().isEmpty()) {
-            spec = spec.and(specificationProviderManager
-                    .getSpecificationProviderByAttribute("category")
-                    .getSpecification(searchParameters.getCategories()));
-        }
-
         return spec;
     }
 }
