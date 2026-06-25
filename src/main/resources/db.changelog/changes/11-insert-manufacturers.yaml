@@ -1,0 +1,140 @@
+databaseChangeLog:
+  - changeSet:
+      id: insert-manufacturers
+      author: maxima
+      changes:
+        - insert:
+            tableName: manufacturers
+            columns:
+              - column:
+                  name: name
+                  value: LG Electronics
+              - column:
+                  name: is_deleted
+                  valueBoolean: false
+        - insert:
+            tableName: manufacturers
+            columns:
+              - column:
+                  name: name
+                  value: Samsung
+              - column:
+                  name: is_deleted
+                  valueBoolean: false
+        - insert:
+            tableName: manufacturers
+            columns:
+              - column:
+                  name: name
+                  value: Whirlpool
+              - column:
+                  name: is_deleted
+                  valueBoolean: false
+        - insert:
+            tableName: manufacturers
+            columns:
+              - column:
+                  name: name
+                  value: Bosch
+              - column:
+                  name: is_deleted
+                  valueBoolean: false
+        - insert:
+            tableName: manufacturers
+            columns:
+              - column:
+                  name: name
+                  value: Electrolux
+              - column:
+                  name: is_deleted
+                  valueBoolean: false
+        - insert:
+            tableName: manufacturers
+            columns:
+              - column:
+                  name: name
+                  value: Philips
+              - column:
+                  name: is_deleted
+                  valueBoolean: false
+        - insert:
+            tableName: manufacturers
+            columns:
+              - column:
+                  name: name
+                  value: Siemens
+              - column:
+                  name: is_deleted
+                  valueBoolean: false
+        - insert:
+            tableName: manufacturers
+            columns:
+              - column:
+                  name: name
+                  value: Panasonic
+              - column:
+                  name: is_deleted
+                  valueBoolean: false
+        - insert:
+            tableName: manufacturers
+            columns:
+              - column:
+                  name: name
+                  value: Sony
+              - column:
+                  name: is_deleted
+                  valueBoolean: false
+        - insert:
+            tableName: manufacturers
+            columns:
+              - column:
+                  name: name
+                  value: Arçelik
+              - column:
+                  name: is_deleted
+                  valueBoolean: false
+        - insert:
+            tableName: manufacturers
+            columns:
+              - column:
+                  name: name
+                  value: Vestel
+              - column:
+                  name: is_deleted
+                  valueBoolean: false
+        - insert:
+            tableName: manufacturers
+            columns:
+              - column:
+                  name: name
+                  value: Gorenje
+              - column:
+                  name: is_deleted
+                  valueBoolean: false
+        - insert:
+            tableName: manufacturers
+            columns:
+              - column:
+                  name: name
+                  value: Haier
+              - column:
+                  name: is_deleted
+                  valueBoolean: false
+        - insert:
+            tableName: manufacturers
+            columns:
+              - column:
+                  name: name
+                  value: TCL
+              - column:
+                  name: is_deleted
+                  valueBoolean: false
+        - insert:
+            tableName: manufacturers
+            columns:
+              - column:
+                  name: name
+                  value: Hisense
+              - column:
+                  name: is_deleted
+                  valueBoolean: false

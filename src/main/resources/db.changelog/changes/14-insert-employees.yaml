@@ -1,0 +1,245 @@
+databaseChangeLog:
+  - changeSet:
+      id: insert-employees
+      author: maxima
+      changes:
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: name
+                  value: Alice Johnson
+              - column:
+                  name: email
+                  value: alice.johnson@company.com
+              - column:
+                  name: password
+                  value: $2a$10$3jAABay0fHLocE/rHn/m6OLoycxnoKYRy5u57gCrXtrHwufidB3A6
+              - column:
+                  name: is_deleted
+                  valueBoolean: false
+        - insert:
+            tableName: employees
+            columns:
+              - column:
+                  name: id
+                  valueNumeric: 21
+              - column:
+                  name: department
+                  value: Sales
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: name
+                  value: Bob Smith
+              - column:
+                  name: email
+                  value: bob.smith@company.com
+              - column:
+                  name: password
+                  value: $2a$10$3jAABay0fHLocE/rHn/m6OLoycxnoKYRy5u57gCrXtrHwufidB3A6
+              - column:
+                  name: is_deleted
+                  valueBoolean: false
+        - insert:
+            tableName: employees
+            columns:
+              - column:
+                  name: id
+                  valueNumeric: 22
+              - column:
+                  name: department
+                  value: Customer Support
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: name
+                  value: Carol Williams
+              - column:
+                  name: email
+                  value: carol.williams@company.com
+              - column:
+                  name: password
+                  value: $2a$10$3jAABay0fHLocE/rHn/m6OLoycxnoKYRy5u57gCrXtrHwufidB3A6
+              - column:
+                  name: is_deleted
+                  valueBoolean: false
+        - insert:
+            tableName: employees
+            columns:
+              - column:
+                  name: id
+                  valueNumeric: 23
+              - column:
+                  name: department
+                  value: Warehouse
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: name
+                  value: David Brown
+              - column:
+                  name: email
+                  value: david.brown@company.com
+              - column:
+                  name: password
+                  value: $2a$10$3jAABay0fHLocE/rHn/m6OLoycxnoKYRy5u57gCrXtrHwufidB3A6
+              - column:
+                  name: is_deleted
+                  valueBoolean: false
+        - insert:
+            tableName: employees
+            columns:
+              - column:
+                  name: id
+                  valueNumeric: 24
+              - column:
+                  name: department
+                  value: Logistics
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: name
+                  value: Emma Davis
+              - column:
+                  name: email
+                  value: emma.davis@company.com
+              - column:
+                  name: password
+                  value: $2a$10$3jAABay0fHLocE/rHn/m6OLoycxnoKYRy5u57gCrXtrHwufidB3A6
+              - column:
+                  name: is_deleted
+                  valueBoolean: false
+        - insert:
+            tableName: employees
+            columns:
+              - column:
+                  name: id
+                  valueNumeric: 25
+              - column:
+                  name: department
+                  value: Sales
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: name
+                  value: Frank Miller
+              - column:
+                  name: email
+                  value: frank.miller@company.com
+              - column:
+                  name: password
+                  value: $2a$10$3jAABay0fHLocE/rHn/m6OLoycxnoKYRy5u57gCrXtrHwufidB3A6
+              - column:
+                  name: is_deleted
+                  valueBoolean: false
+        - insert:
+            tableName: employees
+            columns:
+              - column:
+                  name: id
+                  valueNumeric: 26
+              - column:
+                  name: department
+                  value: Operations
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: name
+                  value: Grace Wilson
+              - column:
+                  name: email
+                  value: grace.wilson@company.com
+              - column:
+                  name: password
+                  value: $2a$10$3jAABay0fHLocE/rHn/m6OLoycxnoKYRy5u57gCrXtrHwufidB3A6
+              - column:
+                  name: is_deleted
+                  valueBoolean: false
+        - insert:
+            tableName: employees
+            columns:
+              - column:
+                  name: id
+                  valueNumeric: 27
+              - column:
+                  name: department
+                  value: Customer Support
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: name
+                  value: Henry Moore
+              - column:
+                  name: email
+                  value: henry.moore@company.com
+              - column:
+                  name: password
+                  value: $2a$10$3jAABay0fHLocE/rHn/m6OLoycxnoKYRy5u57gCrXtrHwufidB3A6
+              - column:
+                  name: is_deleted
+                  valueBoolean: false
+        - insert:
+            tableName: employees
+            columns:
+              - column:
+                  name: id
+                  valueNumeric: 28
+              - column:
+                  name: department
+                  value: Warehouse
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: name
+                  value: Iris Taylor
+              - column:
+                  name: email
+                  value: iris.taylor@company.com
+              - column:
+                  name: password
+                  value: $2a$10$3jAABay0fHLocE/rHn/m6OLoycxnoKYRy5u57gCrXtrHwufidB3A6
+              - column:
+                  name: is_deleted
+                  valueBoolean: false
+        - insert:
+            tableName: employees
+            columns:
+              - column:
+                  name: id
+                  valueNumeric: 29
+              - column:
+                  name: department
+                  value: Logistics
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: name
+                  value: Jack Anderson
+              - column:
+                  name: email
+                  value: jack.anderson@company.com
+              - column:
+                  name: password
+                  value: $2a$10$3jAABay0fHLocE/rHn/m6OLoycxnoKYRy5u57gCrXtrHwufidB3A6
+              - column:
+                  name: is_deleted
+                  valueBoolean: false
+        - insert:
+            tableName: employees
+            columns:
+              - column:
+                  name: id
+                  valueNumeric: 30
+              - column:
+                  name: department
+                  value: Sales
