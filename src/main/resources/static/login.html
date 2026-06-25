@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login — ApplianceStore</title>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body class="auth-page">
+  <div class="auth-card">
+    <div class="auth-logo">🔌</div>
+    <h1 class="auth-title">ApplianceStore</h1>
+    <p class="auth-subtitle" data-i18n="auth.loginTitle">Sign in to your account</p>
+
+    <div id="errorBox" class="error-box hidden"></div>
+
+    <form id="loginForm">
+      <div class="field">
+        <label data-i18n="auth.email">Email</label>
+        <input type="email" id="email" required placeholder="you@example.com"/>
+      </div>
+      <div class="field">
+        <label data-i18n="auth.password">Password</label>
+        <input type="password" id="password" required placeholder="••••••••"/>
+      </div>
+      <button type="submit" class="btn-primary full" id="submitBtn">
+        <span data-i18n="auth.loginBtn">Sign In</span>
+      </button>
+    </form>
+
+    <p class="auth-footer">
+      <span data-i18n="auth.noAccount">Don't have an account?</span>
+      <a href="register.html" data-i18n="auth.register">Register</a>
+    </p>
+    <div class="lang-center">
+      <button class="btn-lang" id="langToggle">EN</button>
+    </div>
+  </div>
+
+  <script src="i18n.js"></script>
+  <script src="auth.js"></script>
+  <script>
+    initLang();
+    if (getToken()) window.location.href = 'index.html';
+
+    document.getElementById('loginForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = document.getElementById('submitBtn');
+      btn.disabled = true;
+      hideError();
+      try {
+        const res = await apiFetch('/auth/login', {
+          method: 'POST',
+          body: JSON.stringify({
+            email: document.getElementById('email').value,
+            password: document.getElementById('password').value
+          })
+        });
+        const token = res.token || res.accessToken || res.jwt;
+        saveToken(token);
+        window.location.href = 'index.html';
+      } catch (err) {
+        let errorMsg = err.message;
+        const lang = getLang();
+        
+        if (errorMsg.toLowerCase().includes('blocked') || errorMsg.toLowerCase().includes('too many failed attempts')) {
+          errorMsg = lang === 'uk' 
+            ? 'Ваш акаунт заблоковано через завелику кількість невдалих спроб входу.' 
+            : 'Your account is blocked due to too many failed attempts.';
+        } 
+        else if (err.status === 401 || err.status === 403 || errorMsg.toLowerCase().includes('bad credentials')) {
+          errorMsg = lang === 'uk' 
+            ? 'Невірний email або пароль.' 
+            : 'Invalid email or password.';
+        }
+
+        showError(errorMsg);
+      } finally {
+        btn.disabled = false;
+      }
+    });
+  </script>
+</body>
+</html>

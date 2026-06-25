@@ -56,3 +56,9 @@ databaseChangeLog:
                   type: decimal(10,2)
                   constraints:
                     nullable: false
+              - column:
+                  name: is_deleted
+                  type: bit(1)
+                  defaultValueBoolean: false
+                  constraints:
+                    nullable: false

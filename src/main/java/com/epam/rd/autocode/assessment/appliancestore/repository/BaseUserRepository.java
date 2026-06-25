@@ -8,4 +8,6 @@ import org.springframework.data.repository.NoRepositoryBean;
 @NoRepositoryBean
 public interface BaseUserRepository<T extends User> extends JpaRepository<T, Long> {
     Optional<T> findByEmail(String email);
+
+    boolean existsByEmail(String email);
 }

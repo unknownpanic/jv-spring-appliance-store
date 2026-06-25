@@ -16,6 +16,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.SQLRestriction;
 
 @Entity
 @Getter
@@ -23,6 +25,8 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "appliances")
+@SQLRestriction("is_deleted=false")
+@SQLDelete(sql = "UPDATE appliances SET is_deleted = true WHERE id = ?")
 public class Appliance {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -46,4 +50,6 @@ public class Appliance {
     private Integer power;
     @Column(nullable = false)
     private BigDecimal price;
+    @Column(name = "is_deleted")
+    private boolean isDeleted = false;
 }

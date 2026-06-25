@@ -40,17 +40,23 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain getSecurityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
-                .cors(AbstractHttpConfigurer::disable)
+                .cors(Customizer.withDefaults())
+                .csrf(AbstractHttpConfigurer::disable)
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(
                         auth -> auth
                                 .requestMatchers(
                                         "/auth/**",
-                                        "/appliances/**"
+                                        "/appliances/**",
+                                        "/error/**"
                                 )
                                 .permitAll()
                                 .anyRequest()
                                 .authenticated()
+                )
+                .exceptionHandling(ex -> ex
+                        .accessDeniedHandler((request, response, exception) ->
+                                response.sendRedirect("/error/403.html"))
                 )
                 .httpBasic(Customizer.withDefaults())
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)

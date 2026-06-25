@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ApplianceStore</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <nav class="navbar">
+    <a href="index.html" class="nav-logo">🔌 ApplianceStore</a>
+    <div class="nav-links" id="navLinks">
+      <a href="index.html" data-i18n="nav.home">Home</a>
+      <a href="appliances.html" data-i18n="nav.appliances">Appliances</a>
+      <a href="orders.html" class="auth-only" data-i18n="nav.orders">Orders</a>
+      <a href="clients.html" class="employee-only" data-i18n="nav.clients">Clients</a>
+      <a href="employees.html" class="employee-only" data-i18n="nav.employees">Employees</a>
+      <a href="manufacturers.html" class="employee-only" data-i18n="nav.manufacturers">Manufacturers</a>
+    </div>
+    <div class="nav-actions">
+      <button class="btn-lang" id="langToggle">EN</button>
+      <div class="auth-only" id="userInfo">
+        <span id="userEmail"></span>
+        <span id="userRole" class="badge"></span>
+        <button onclick="logout()" data-i18n="nav.logout">Logout</button>
+      </div>
+      <div class="guest-only" id="guestActions">
+        <a href="login.html" class="btn-outline" data-i18n="nav.login">Login</a>
+        <a href="register.html" class="btn-primary" data-i18n="nav.register">Register</a>
+      </div>
+    </div>
+    <button class="burger" id="burger">☰</button>
+  </nav>
+
+  <main class="container">
+    <div class="hero">
+      <h1 id="welcomeTitle">Welcome!</h1>
+      <p class="subtitle" data-i18n="home.subtitle">Appliance store management system</p>
+    </div>
+
+    <div class="guest-only card-info" id="guestBanner">
+      <div>
+        <p data-i18n="home.signInMsg"><strong>Sign in or register to continue</strong></p>
+        <p class="small" data-i18n="home.registerNote">Registration is available for clients only</p>
+      </div>
+      <div class="flex-gap">
+        <a href="login.html" class="btn-outline" data-i18n="nav.login">Login</a>
+        <a href="register.html" class="btn-primary" data-i18n="nav.register">Register</a>
+      </div>
+    </div>
+
+    <div class="cards-grid" id="menuCards"></div>
+  </main>
+
+  <script src="i18n.js"></script>
+  <script src="auth.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>

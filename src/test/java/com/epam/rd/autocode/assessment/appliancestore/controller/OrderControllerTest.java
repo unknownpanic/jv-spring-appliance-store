@@ -145,7 +145,7 @@ class OrderControllerTest {
         when(orderService.approveById(eq(id), eq("user@test.com"))).thenReturn(responseDto);
 
         mockMvc.perform(patch("/orders/{id}/approve", id)
-                        .principal(mockPrincipal)) // Інжектимо Principal
+                        .principal(mockPrincipal))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.approved").value(true));
 

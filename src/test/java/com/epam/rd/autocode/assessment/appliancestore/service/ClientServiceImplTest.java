@@ -10,6 +10,7 @@ import com.epam.rd.autocode.assessment.appliancestore.model.dto.client.CreateCli
 import com.epam.rd.autocode.assessment.appliancestore.model.dto.client.UpdateClientRequestDto;
 import com.epam.rd.autocode.assessment.appliancestore.repository.ClientRepository;
 import com.epam.rd.autocode.assessment.appliancestore.repository.RoleRepository;
+import com.epam.rd.autocode.assessment.appliancestore.repository.UserRepository;
 import com.epam.rd.autocode.assessment.appliancestore.service.impl.ClientServiceImpl;
 import java.util.List;
 import java.util.Optional;
@@ -43,6 +44,8 @@ class ClientServiceImplTest {
     private PasswordEncoder passwordEncoder;
     @Mock
     private RoleRepository roleRepository;
+    @Mock
+    private UserRepository userRepository;
     @InjectMocks
     private ClientServiceImpl clientService;
     private Client client;
@@ -162,7 +165,6 @@ class ClientServiceImplTest {
         requestDto.setEmail("new@email.com");
 
         when(clientRepository.findById(1L)).thenReturn(Optional.of(client));
-        when(clientRepository.findByEmail(requestDto.getEmail())).thenReturn(Optional.empty());
         doNothing().when(clientMapper).updateClient(client, requestDto);
         when(clientRepository.save(client)).thenReturn(client);
         when(clientMapper.toDto(client)).thenReturn(clientResponseDto);
@@ -180,12 +182,11 @@ class ClientServiceImplTest {
         requestDto.setEmail("used@email.com");
 
         Client otherClient = new Client();
-        otherClient.setId(2L); // Інший ID
+        otherClient.setId(2L);
         otherClient.setEmail("used@email.com");
 
+        when(userRepository.existsByEmail("used@email.com")).thenReturn(true);
         when(clientRepository.findById(1L)).thenReturn(Optional.of(client));
-        when(clientRepository.findByEmail(requestDto.getEmail())).thenReturn(Optional.of(otherClient));
-
         RegistrationException exception = assertThrows(RegistrationException.class,
                 () -> clientService.updateById(1L, requestDto));
 

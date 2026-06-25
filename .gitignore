@@ -1,7 +1,6 @@
 ### General ###
 .DS_Store
 requirements.md
-.gitattributes
 *.png
 target/
 !.mvn/wrapper/maven-wrapper.jar
@@ -22,7 +21,7 @@ target/
 *.iws
 *.iml
 *.ipr
-.mvn
+.mvn/
 
 ### NetBeans ###
 /nbproject/private/

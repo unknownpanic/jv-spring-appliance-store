@@ -10,6 +10,7 @@ import com.epam.rd.autocode.assessment.appliancestore.model.dto.employee.Employe
 import com.epam.rd.autocode.assessment.appliancestore.model.dto.employee.UpdateEmployeeRequestDto;
 import com.epam.rd.autocode.assessment.appliancestore.repository.EmployeeRepository;
 import com.epam.rd.autocode.assessment.appliancestore.repository.RoleRepository;
+import com.epam.rd.autocode.assessment.appliancestore.repository.UserRepository;
 import com.epam.rd.autocode.assessment.appliancestore.service.EmployeeService;
 import java.util.List;
 import java.util.Set;
@@ -23,6 +24,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class EmployeeServiceImpl implements EmployeeService {
     private final EmployeeRepository employeeRepository;
     private final EmployeeMapper employeeMapper;
+    private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final RoleRepository roleRepository;
 
@@ -64,11 +66,10 @@ public class EmployeeServiceImpl implements EmployeeService {
         Employee employee = employeeRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Employee not found"));
 
-        employeeRepository.findByEmail(requestDto.getEmail())
-                .filter(e -> !e.getId().equals(id))
-                .ifPresent(e -> {
-                    throw new RegistrationException("Email is already in use");
-                });
+        if (!employee.getEmail().equals(requestDto.getEmail())
+                && userRepository.existsByEmail(requestDto.getEmail())) {
+            throw new RegistrationException("Email is already in use");
+        }
 
         employeeMapper.updateEmployee(employee, requestDto);
         return employeeMapper.toDto(employeeRepository.save(employee));

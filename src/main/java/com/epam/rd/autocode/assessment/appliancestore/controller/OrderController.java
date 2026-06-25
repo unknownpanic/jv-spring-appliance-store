@@ -36,8 +36,18 @@ public class OrderController {
         return orderService.getAll(pageable);
     }
 
+    @GetMapping("/my")
+    @PreAuthorize("hasRole('CLIENT')")
+    public Page<OrderResponseDto> getMyOrders(
+            Authentication authentication,
+            @PageableDefault(size = 10, sort = "id") Pageable pageable
+    ) {
+        String userEmail = authentication.getName();
+        return orderService.getMyOrders(userEmail, pageable);
+    }
+
     @GetMapping("/{id}")
-    @PreAuthorize("hasRole('EMPLOYEE')")
+    @PreAuthorize("hasAnyRole('CLIENT', 'EMPLOYEE')")
     public OrderResponseDto getOrderById(@PathVariable Long id) {
         return orderService.getById(id);
     }

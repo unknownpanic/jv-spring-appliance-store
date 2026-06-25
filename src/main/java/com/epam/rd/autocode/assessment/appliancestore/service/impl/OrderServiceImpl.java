@@ -48,6 +48,13 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    @Transactional(readOnly = true)
+    public Page<OrderResponseDto> getMyOrders(String userEmail, Pageable pageable) {
+        return orderRepository.findAllByClientEmail(userEmail, pageable)
+                .map(orderMapper::toDto);
+    }
+
+    @Override
     @Transactional
     public OrderResponseDto create(CreateOrderRequestDto requestDto, String userEmail) {
         Client client = clientRepository.findByEmail(userEmail)
@@ -69,6 +76,7 @@ public class OrderServiceImpl implements OrderService {
 
         order.getOrderRowSet().clear();
         order.getOrderRowSet().addAll(buildOrderRows(requestDto));
+        order.setApproved(false);
 
         return orderMapper.toDto(orderRepository.save(order));
     }
