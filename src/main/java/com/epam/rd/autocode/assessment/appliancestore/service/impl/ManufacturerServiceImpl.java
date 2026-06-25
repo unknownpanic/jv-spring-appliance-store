@@ -52,6 +52,9 @@ public class ManufacturerServiceImpl implements ManufacturerService {
     @Override
     @Transactional
     public void deleteById(Long id) {
+        if (!manufacturerRepository.existsById(id)) {
+            throw new EntityNotFoundException("Manufacturer not found");
+        }
         manufacturerRepository.deleteById(id);
     }
 }
