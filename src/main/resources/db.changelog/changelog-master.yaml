@@ -19,3 +19,15 @@ databaseChangeLog:
       file: db.changelog/changes/09-create-users-roles-table.yaml
   - include:
       file: db.changelog/changes/10-insert-roles.yaml
+  - include:
+      file: db.changelog/changes/11-insert-manufacturers.yaml
+  - include:
+      file: db.changelog/changes/12-insert-appliances.yaml
+  - include:
+      file: db.changelog/changes/13-insert-clients.yaml
+  - include:
+      file: db.changelog/changes/14-insert-employees.yaml
+  - include:
+      file: db.changelog/changes/15-insert-orders.yaml
+  - include:
+      file: db.changelog/changes/16-assign-roles.yaml
